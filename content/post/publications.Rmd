@@ -1,0 +1,16 @@
+---
+title: Publications
+author: ''
+date: 2018-07-23T21:13:14-05:00
+slug: publications
+categories: []
+tags: []
+subtitle: ''
+---
+ These are publications in ***peer-reviewed journals**
+ 
+ - [Decomposing socio-economic inequalities in leisure-time physical inactivity: the case of Spanish children](https://equityhealthj.biomedcentral.com/articles/10.1186/s12939-016-0394-9) _International Journal for Equity in Health_. 15:106. **2016** (with Rosa Urbanos)
+ 
+ - [Intra-arterial mechanical thrombectomy stent retrievers and aspiration devices in the treatment of acute ischaemic stroke: A systematic review and meta-analysis with trial sequential analysis](http://journals.sagepub.com/doi/abs/10.1177/2396987317719362) _European Stroke Journal_ Volume: 2 issue: 4, page(s): 308-318. **2017**. (with Darren Flynn, Richard Francis, Kristoffer Halvorsrud, Dawn Craig, Shannon Robalino, Peter McMeekin, Adela Cora, Joyce Balami, Gary A Ford and Phil White)
+ 
+ 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Edu Gonzalo Almorox</title>
+    <link>/page/</link>
+    <description>Recent content in Pages on Edu Gonzalo Almorox</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
+    <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
+    
+	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Me in a nutshell....</title>
+      <link>/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/page/about/</guid>
+      <description>I am a PhD researcher in Economics at Newcastle University. My main research interests are applied economics with a particular focus on health and computational social science.
+I am currently investigating empirical issues in the market for social care in England. I am also interested in elements associated with unhealthy behaviours and tools for open science.
+Before my PhD, I was a NIHR reserch methods fellow in the Health Economics Group at Newcastle University and prior to that I held several positions as economist in the industry.</description>
+    </item>
+    
+  </channel>
+</rss>

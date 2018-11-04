@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Edu Gonzalo Almorox</title>
+    <link>/categories/r/</link>
+    <description>Recent content in R on Edu Gonzalo Almorox</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
+    <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
+    <lastBuildDate>Sun, 04 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What is this about?</title>
+      <link>/post/what-is-this-about/</link>
+      <pubDate>Sun, 04 Nov 2018 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/what-is-this-about/</guid>
+      <description>After several attempts I am finally deploying a website. This has been a long journey of trial and error where I have two main sources: This post by Allison Presmanes and this video by John Muschelli.
+The website is built with R blogdown and Hugo. It is hosted and deployed in netlifly.com. The template is based on the Beautiful theme.
+The idea of this blog is to contribute to the community and show case studies that may be helpful for some.</description>
+    </item>
+    
+  </channel>
+</rss>

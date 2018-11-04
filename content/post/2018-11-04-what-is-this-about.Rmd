@@ -1,0 +1,24 @@
+---
+title: What is this about?
+author: Edu Gonzalo
+date: '2018-11-04'
+slug: what-is-this-about
+categories:
+  - R
+tags:
+  - blogdown
+  - hugo
+subtitle: ''
+---
+
+After several attempts I am finally deploying a website. This has been a long journey of trial and error where I have two main sources: [This post](https://alison.rbind.io/post/up-and-running-with-blogdown/) by Allison Presmanes and this [video](https://www.youtube.com/watch?v=syWAKaj-4ck) by John Muschelli. 
+
+The website is built with R [`blogdown`](https://github.com/rstudio/blogdown) and [Hugo](https://gohugo.io). It is hosted and deployed in [netlifly.com](https://www.netlify.com). The template is based on the [Beautiful](https://github.com/halogenica/beautifulhugo) theme. 
+
+The idea of this blog is to contribute to the community and show case studies that may be helpful for some. Topics are not necessarily related to what I do for my research.
+
+
+The code of this website and other projects is on my [Github](https://github.com/edugonzaloalmorox).  
+
+
+
