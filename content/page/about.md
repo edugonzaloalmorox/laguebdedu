@@ -11,5 +11,5 @@ Before my PhD, I was a [NIHR reserch methods fellow](https://www.nihr.ac.uk/fund
 
 In my free time I ride bikes, sometimes [for a while](http://trackleaders.com/transconrace15i.php?name=72___Edu_Gonzalo), or run in [weird places](http://www.saharamarathon.org/en/races/results-2015/).
 
-Enjoy your stay and if you have comments or suggestions please do not hesitated to send me an email to [eduardogonzaloalmorox@gmail.com](eduardogonzaloalmorox@gmail.com) or follow me on [Twitter](https://twitter.com/EdudinGonzalo)
+Enjoy your stay and if you have comments or suggestions please do not hesitate to send me an email to [eduardogonzaloalmorox@gmail.com](eduardogonzaloalmorox@gmail.com) or follow me on [Twitter](https://twitter.com/EdudinGonzalo).
 
