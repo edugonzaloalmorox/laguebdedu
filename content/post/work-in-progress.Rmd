@@ -8,7 +8,7 @@ tags: []
 subtitle: ''
 ---
 
-These are the working papers of past and ongoing projects 
+These are the **working papers** of past and ongoing projects 
 
 - [The role of queuing models in economic evaluation: lessons from an illustrative case study of emergency care](https://pdfs.semanticscholar.org/260c/4eaede4a2b4104b2cf2331f6b7db5226d5dc.pdf) _Newcastle Health Economics Group working paper series_. HEG2015_03 **2015** (with Alexandru Lucian Gaianu and Luke Vale)
 

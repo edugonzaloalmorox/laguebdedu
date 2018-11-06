@@ -1,11 +1,11 @@
 ---
 title: Me in a nutshell....
-subtitle: Why you'd want to work with me
+subtitle: 
 comments: false
 ---
-I am a PhD researcher in Economics at [Newcastle University](http://www.ncl.ac.uk/business-school/). My main research interests are applied economics with a particular focus on health and computational social science.
+I am a PhD researcher in Economics at [Newcastle University](http://www.ncl.ac.uk/business-school/). My main research interests are applied economics with a particular focus on health and [computational social science](https://en.wikipedia.org/wiki/Computational_social_science).
 
-I am currently investigating empirical issues in the market for social care in England. I am also interested in elements associated with unhealthy behaviours and tools for open science.
+I am currently investigating empirical issues in the market for adult long term (social) care in England. I am also interested in elements associated with unhealthy behaviours and tools for open science.
 
 Before my PhD, I was a [NIHR reserch methods fellow](https://www.nihr.ac.uk/funding-and-support/funding-for-training-and-career-development/training-programmes/research-methods-programme/research-methods-fellowship-and-internships/) in the [Health Economics Group](https://research.ncl.ac.uk/healtheconomicsgroup/) at Newcastle University and prior to that I held several positions as economist in the industry. For further details please click on my [CV](/pdf/EGA_CV_2018.pdf) or on my [LinkedIn](https://www.linkedin.com/in/eduardo-gonzalo-almorox-5b8b4955/) profile. 
 

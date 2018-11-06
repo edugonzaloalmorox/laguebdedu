@@ -28,8 +28,7 @@
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
       <guid>/post/what-is-this-about/</guid>
       <description>After several attempts I am finally deploying a website. This has been a long journey of trial and error where I have two main sources: This post by Allison Presmanes and this video by John Muschelli.
-The website is built with R blogdown and Hugo. It is hosted and deployed in netlifly.com. The template is based on the Beautiful theme.
-The idea of this blog is to contribute to the community and show case studies that may be helpful for some.</description>
+The idea of this website is to contribute to the community and show case studies that may be helpful for some. You are likely to find a bunch of things associated with care homes, ageing and long-term care in England.</description>
     </item>
     
     <item>
@@ -38,9 +37,10 @@ The idea of this blog is to contribute to the community and show case studies th
       <pubDate>Sun, 04 Nov 2018 00:00:00 +0000</pubDate>
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
       <guid>/post/work-in-progress/</guid>
-      <description>These are the working papers that I have worked or I am working on
+      <description>These are the working papers of past and ongoing projects
  The role of queuing models in economic evaluation: lessons from an illustrative case study of emergency care Newcastle Health Economics Group working paper series. HEG2015_03 2015 (with Alexandru Lucian Gaianu and Luke Vale)
- The effect of house prices on the long-term care market: Evidence from England 2017 (with Volodymyr Bilotkach, Nils Braakmann and John Wildman)</description>
+ The effect of house prices on the long-term care market: Evidence from England 2017 (with Volodymyr Bilotkach, Nils Braakmann and John Wildman)
+ Local budgets and care homes quality in England: a duration analysis 2018 (with Nils Braakmann and John Wildman)</description>
     </item>
     
     <item>
@@ -49,7 +49,7 @@ The idea of this blog is to contribute to the community and show case studies th
       <pubDate>Mon, 23 Jul 2018 21:13:14 -0500</pubDate>
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
       <guid>/post/publications/</guid>
-      <description>These are publications in *peer-reviewed journals
+      <description>These are publications in peer-reviewed journals
  Decomposing socio-economic inequalities in leisure-time physical inactivity: the case of Spanish children International Journal for Equity in Health. 15:106. 2016 (with Rosa Urbanos)
  Intra-arterial mechanical thrombectomy stent retrievers and aspiration devices in the treatment of acute ischaemic stroke: A systematic review and meta-analysis with trial sequential analysis European Stroke Journal Volume: 2 issue: 4, page(s): 308-318. 2017. (with Darren Flynn, Richard Francis, Kristoffer Halvorsrud, Dawn Craig, Shannon Robalino, Peter McMeekin, Adela Cora, Joyce Balami, Gary A Ford and Phil White)</description>
     </item>
