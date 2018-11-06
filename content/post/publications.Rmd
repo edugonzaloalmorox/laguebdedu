@@ -7,7 +7,7 @@ categories: []
 tags: []
 subtitle: ''
 ---
- These are publications in ***peer-reviewed journals**
+ These are publications in **peer-reviewed journals**
  
  - [Decomposing socio-economic inequalities in leisure-time physical inactivity: the case of Spanish children](https://equityhealthj.biomedcentral.com/articles/10.1186/s12939-016-0394-9) _International Journal for Equity in Health_. 15:106. **2016** (with Rosa Urbanos)
  
