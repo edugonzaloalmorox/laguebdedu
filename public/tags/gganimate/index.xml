@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gganimate on Edu Gonzalo Almorox</title>
+    <link>/tags/gganimate/</link>
+    <description>Recent content in Gganimate on Edu Gonzalo Almorox</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
+    <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/gganimate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Animating administrative data</title>
+      <link>/post/ageing-in-england/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/ageing-in-england/</guid>
+      <description>England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the old-age dependency ratio (OADR) which represents the people aged 65 and over for every 1,000 people aged 16 to 64 years (“traditional working age”).
+The process is relatively nice and easy. It consists of three core steps:</description>
+    </item>
+    
+  </channel>
+</rss>
