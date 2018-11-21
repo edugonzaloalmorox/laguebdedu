@@ -12,12 +12,12 @@ These are the **working papers** of past and ongoing projects
 
 - [The role of queuing models in economic evaluation: lessons from an illustrative case study of emergency care](https://pdfs.semanticscholar.org/260c/4eaede4a2b4104b2cf2331f6b7db5226d5dc.pdf) _Newcastle Health Economics Group working paper series_. HEG2015_03 **2015** (with Alexandru Lucian Gaianu and Luke Vale)
 
-- [The effect of house prices on the long-term care market: Evidence from England](/pdf/house_prices_oct18.pdf) **2017** (with Volodymyr Bilotkach, Nils Braakmann and John Wildman)
+- [The effect of house prices on the long-term care market: Evidence from England](/pdf/care_homes_houseprices_nov18.pdf) **2017** (with Volodymyr Bilotkach, Nils Braakmann and John Wildman)
 
 
-- [Local budgets and care homes quality in England: a duration analysis](/pdf/duration-quality-oct-18.pdf) **2018** (with  Nils Braakmann and John Wildman)
+- [Local budgets and care homes quality in England: a duration analysis](/pdf/duration-quality-nov-18.pdf) **2018** (with  Nils Braakmann and John Wildman)
 
-- [The effect of care home closures on the quality of care homes nearby](/pdf/care-homes-closures-oct18.pdf) **2018** - **Job Market Paper**
+- [The effect of care home closures on the quality of care homes nearby](/pdf/care-homes-closures-nov18.pdf) **2018** - **Job Market Paper**
 
 - How public information affects online reviews? Insights from long term care
 
