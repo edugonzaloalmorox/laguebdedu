@@ -7,18 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Sun, 04 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Care homes in England</title>
-      <link>/post/care-homes-in-england/</link>
-      <pubDate>Sun, 04 Nov 2018 00:00:00 +0000</pubDate>
+      <title>Animating administrative data</title>
+      <link>/post/ageing-in-england/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
-      <guid>/post/care-homes-in-england/</guid>
-      <description></description>
+      <guid>/post/ageing-in-england/</guid>
+      <description>England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the old-age dependency ratio (OADR).
+The process is relatively nice and easy. It consists of three core steps:
+ Load the geographical data and select the information for England
+ Arrange the data into a tidy format</description>
     </item>
     
     <item>
@@ -41,6 +44,15 @@ The idea of this website is to contribute to the community and show case studies
  The role of queuing models in economic evaluation: lessons from an illustrative case study of emergency care Newcastle Health Economics Group working paper series. HEG2015_03 2015 (with Alexandru Lucian Gaianu and Luke Vale)
  The effect of house prices on the long-term care market: Evidence from England 2017 (with Volodymyr Bilotkach, Nils Braakmann and John Wildman)
  Local budgets and care homes quality in England: a duration analysis 2018 (with Nils Braakmann and John Wildman)</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/post/projects/</link>
+      <pubDate>Mon, 23 Jul 2018 21:13:14 -0500</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/projects/</guid>
+      <description>Coming soon …!</description>
     </item>
     
     <item>

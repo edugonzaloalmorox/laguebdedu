@@ -1,0 +1,192 @@
+---
+title: Animating administrative data
+author: ''
+date: '2018-11-21'
+slug: ageing-in-england
+categories: []
+tags: []
+subtitle: 'Looking at the ageing of the population in England'
+---
+
+
+
+<p>England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the <a href="https://ec.europa.eu/eurostat/web/products-datasets/-/tps00198">old-age dependency ratio</a> (OADR).</p>
+<p>The process is relatively nice and easy. It consists of three core steps:</p>
+<ul>
+<li><p>Load the geographical data and select the information for England</p></li>
+<li><p>Arrange the data into a tidy format</p></li>
+<li><p>Plot the data in a faceted way</p></li>
+</ul>
+<div id="load-the-data" class="section level3">
+<h3>Load the data</h3>
+<p>First things first, let’s get the geographical information (aka. the <a href="https://en.wikipedia.org/wiki/Shapefile">shapefile</a>) on board. Before, this was a bit messy process but this is extremely easy with <code>sf::read_sf()</code>. The Office of National Statistics offers <a href="https://www.ons.gov.uk/methodology/geography/ukgeographies">geographical information</a> at several levels for the whole United Kingdom. I am only interested in the information referred to the 326 districts in England (denominated with <code>E0...</code> )</p>
+<pre class="r"><code>england = sf::read_sf(&quot;./data/geography/england_lad_2017/Local_Authority_Districts_December_2017_Ultra_Generalised_Clipped_Boundaries_in_United_Kingdom_WGS84.shp&quot;) %&gt;% 
+  filter(str_detect(lad17cd, &quot;^E0&quot;)) </code></pre>
+<p>The data created is a tibble</p>
+<pre><code>## Simple feature collection with 5 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 418796.4 ymin: 506491 xmax: 478259.4 ymax: 537164.9
+## epsg (SRID):    NA
+## proj4string:    +proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +datum=OSGB36 +units=m +no_defs
+## # A tibble: 5 x 11
+##   objectid lad17cd lad17nm lad17nmw  bng_e  bng_n  long   lat st_areasha
+##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1        1 E06000… Hartle… &lt;NA&gt;     447157 531476 -1.27  54.7  96586817.
+## 2        2 E06000… Middle… &lt;NA&gt;     451141 516887 -1.21  54.5  54741668.
+## 3        3 E06000… Redcar… &lt;NA&gt;     464359 519597 -1.01  54.6 247140467.
+## 4        4 E06000… Stockt… &lt;NA&gt;     444937 518183 -1.31  54.6 206473805.
+## 5        5 E06000… Darlin… &lt;NA&gt;     428029 515649 -1.57  54.5 198298966.
+## # ... with 2 more variables: st_lengths &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [m]&gt;</code></pre>
+<p>The second main source of information refers to the OADR. The data covers years 1996 to 2036<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> in periods of 10 years. The names of the variables in the information of the ONS are not particularly clean so <code>janitor::clean_names()</code> does a splendid job here.</p>
+<pre class="r"><code>ageing = read_excel(&quot;data/raw/ons_uk_ageing.xls&quot;, sheet = &quot;Old Age Dependency Ratio&quot; ) %&gt;%
+  clean_names() %&gt;%
+  filter(str_detect(area_code, &quot;^E0&quot;)) </code></pre>
+</div>
+<div id="tidy-the-data" class="section level3">
+<h3>Tidy the data</h3>
+<p>The key is to present the data in long format having a <code>time</code> and a <code>dependency</code> variable for each decade and old age dependency ratio respectively. <code>tidyr::gather()</code> may be a good option here.</p>
+<pre class="r"><code>ageing = ageing %&gt;%
+  gather(year, dependency, x1996:x2036, -area_code, -area_name) %&gt;%
+  mutate(year = gsub(&quot;x&quot;, &quot;&quot;, year)) %&gt;%
+  arrange(area_code, year)</code></pre>
+<pre><code>## # A tibble: 5 x 4
+##   area_code area_name  year  dependency
+##   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;
+## 1 E06000001 Hartlepool 1996        244.
+## 2 E06000001 Hartlepool 2006        261.
+## 3 E06000001 Hartlepool 2016        303.
+## 4 E06000001 Hartlepool 2026        384.
+## 5 E06000001 Hartlepool 2036        480.</code></pre>
+<p>Also, to fill the map I convert the OADR into a factor variable with <code>dplyr::ntile()</code> and link it to the data frame with geographical data (<code>england</code>). I create a variable <code>lab_dep</code> with the max and min value of each tile and that I will use as label for the represented variable.</p>
+<pre class="r"><code>ageing = ageing %&gt;%
+  mutate(quintile_dep = ntile(dependency, 7), 
+         lab_dep = as.factor(ordered(case_when(quintile_dep == 1 ~ &quot;[81 - 218)&quot;, 
+                                               quintile_dep == 2 ~ &quot;[218 - 250)&quot;, 
+                                               quintile_dep == 3 ~ &quot;[250 - 283)&quot;,
+                                               quintile_dep == 4 ~ &quot;[283 - 329)&quot;,
+                                               quintile_dep == 5 ~ &quot;[329 - 392)&quot;, 
+                                               quintile_dep == 6 ~ &quot;[392 - 478)&quot;, 
+                                               quintile_dep == 7 ~ &quot;[478 - 928)&quot;)))) 
+
+
+england_ext = full_join(england, ageing, by = c(&quot;lad17cd&quot; = &quot;area_code&quot;, &quot;lad17nm&quot; =&quot;area_name&quot;) )
+
+england_ext$quintile_dep = as.factor(england_ext$quintile_dep)</code></pre>
+<pre><code>## Observations: 1,630
+## Variables: 15
+## $ objectid     &lt;dbl&gt; 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4...
+## $ lad17cd      &lt;chr&gt; &quot;E06000001&quot;, &quot;E06000001&quot;, &quot;E06000001&quot;, &quot;E06000001...
+## $ lad17nm      &lt;chr&gt; &quot;Hartlepool&quot;, &quot;Hartlepool&quot;, &quot;Hartlepool&quot;, &quot;Hartle...
+## $ lad17nmw     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
+## $ bng_e        &lt;dbl&gt; 447157, 447157, 447157, 447157, 447157, 451141, 4...
+## $ bng_n        &lt;dbl&gt; 531476, 531476, 531476, 531476, 531476, 516887, 5...
+## $ long         &lt;dbl&gt; -1.27023, -1.27023, -1.27023, -1.27023, -1.27023,...
+## $ lat          &lt;dbl&gt; 54.67616, 54.67616, 54.67616, 54.67616, 54.67616,...
+## $ st_areasha   &lt;dbl&gt; 96586817, 96586817, 96586817, 96586817, 96586817,...
+## $ st_lengths   &lt;dbl&gt; 50245.93, 50245.93, 50245.93, 50245.93, 50245.93,...
+## $ year         &lt;chr&gt; &quot;1996&quot;, &quot;2006&quot;, &quot;2016&quot;, &quot;2026&quot;, &quot;2036&quot;, &quot;1996&quot;, &quot;...
+## $ dependency   &lt;dbl&gt; 244.1609, 261.2594, 303.0965, 384.3626, 479.5169,...
+## $ quintile_dep &lt;fct&gt; 2, 3, 4, 5, 7, 2, 2, 2, 4, 5, 3, 3, 5, 6, 7, 2, 2...
+## $ lab_dep      &lt;ord&gt; [218 - 250), [250 - 283), [283 - 329), [329 - 392...
+## $ geometry     &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((448801.4 53..., MULT...</code></pre>
+</div>
+<div id="plot-the-data" class="section level3">
+<h3>Plot the data</h3>
+<p>Let´s begin plotting the OADR for 2016. <code>sf::geom_sf()</code> seems to be a simpler solution to other alternatives such as <code>ggplot:geom_polygon()</code>.</p>
+<pre class="r"><code> england_ext %&gt;%
+  filter(year == &quot;2016&quot;) %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1)</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-9-1.png" width="1344" /></p>
+<p>Not too bad. Yet, what is the picture over time?.</p>
+<pre class="r"><code>plot_ageing = england_ext %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1, 
+                     guide = guide_legend(
+                       direction = &quot;horizontal&quot;,
+                       title.position = &quot;top&quot;,
+                       title.hjust =0.5)) +
+  facet_wrap(~ year, ncol = 3)</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-11-1.png" width="1344" /></p>
+<p>The key line is the <code>facet_wrap()</code> call which allows to facet <code>OADR</code> over <code>years</code>. A bit of fine tunning with some options in <code>theme()</code> give a cleaner plot.</p>
+<pre class="r"><code>plot_ageing +
+  theme(axis.text = element_blank()
+        ,axis.title = element_blank()
+        ,axis.ticks = element_blank()
+        ,axis.line=element_blank()
+        ,panel.grid = element_blank()
+        ,legend.text = element_text(size = 10)
+        ,legend.key.width = unit(0.35,&quot;cm&quot;)
+        ,legend.key.height = unit(0.35,&quot;cm&quot;)
+        ,plot.title = element_text(size= 6)
+        ,legend.position = &quot;bottom&quot;
+        ,plot.caption = element_text()
+        ,legend.background = element_blank()
+        ,panel.background = element_blank()
+        ,legend.spacing.x = unit(0.25, &#39;cm&#39;)
+        ,strip.text.x = element_text(size = 12)) </code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-12-1.png" width="1344" /></p>
+</div>
+<div id="animate-the-plot" class="section level3">
+<h3>Animate the plot</h3>
+<p>We can combine the former plots by creating an animated map with <code>gganimate::animate()</code>. Here the main difference with respect to a simple plot in <code>ggplot()</code> is the incorporation of <code>transition_manual()</code> that specifies the transition in the map.</p>
+<pre class="r"><code>aniplot = england_ext %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  labs(title = &quot;Old Age Dependency Ratio (OADR)&quot;,
+       subtitle = &#39;Year: {current_frame}&#39;) +
+  transition_manual(year) + 
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1, 
+                     guide = guide_legend(
+                       direction = &quot;horizontal&quot;,
+                       title.position = &quot;top&quot;,
+                       title.hjust =0.5)) +
+  theme(axis.text = element_blank()
+        ,axis.title = element_blank()
+        ,axis.ticks = element_blank()
+        ,axis.line=element_blank()
+        ,panel.grid = element_blank()
+        ,legend.title = element_blank()
+        ,legend.text = element_text(size = 14)
+        ,legend.key.width = unit(0.35,&quot;cm&quot;)
+        ,legend.key.height = unit(0.5,&quot;cm&quot;)
+        ,plot.title = element_text(size= 22)
+        ,plot.subtitle=element_text(size=18)
+        ,legend.position = &quot;bottom&quot;
+        ,plot.caption = element_text()
+        ,legend.background = element_blank()
+        ,panel.background = element_blank()
+        ,legend.spacing.x = unit(0.25, &#39;cm&#39;))</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-14-1.gif" /><!-- --></p>
+<p>The code and data to reproduce the figures are <a href="https://github.com/edugonzaloalmorox/dynamic_maps">available on Github</a>.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Data for 2026 and 2036 are projections<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>

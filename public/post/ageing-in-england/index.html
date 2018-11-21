@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Animating administrative data - Edu Gonzalo Almorox</title>
+  <meta property="og:title" content="Animating administrative data" />
+  <meta name="twitter:title" content="Animating administrative data" />
+  <meta name="description" content="Looking at the ageing of the population in England">
+  <meta property="og:description" content="Looking at the ageing of the population in England">
+  <meta name="twitter:description" content="Looking at the ageing of the population in England">
+  <meta name="author" content="Edu Gonzalo Almorox"/>
+  <meta property="og:image" content="/img/portrait.jpg" />
+  <meta name="twitter:image" content="/img/portrait.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@EdudinGonzalo" />
+  <meta name="twitter:creator" content="@EdudinGonzalo" />
+  <meta property="og:url" content="/post/ageing-in-england/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Edu Gonzalo Almorox" />
+
+  <meta name="generator" content="Hugo 0.50" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Edu Gonzalo Almorox">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+    <script type="application/ld+json"> {
+  "@context" : "http://schema.org",
+  "@type" : "BlogPosting",
+  
+  "name" : "Animating administrative data",
+  "headline" : "Animating administrative data",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/ageing-in-england/"
+  },
+  "description" : "England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the old-age dependency ratio (OADR).
+The process is relatively nice and easy. It consists of three core steps:
+ Load the geographical data and select the information for England
+ Arrange the data into a tidy format",
+  "inLanguage" : "en",
+  "author": {
+      "@type": "Person",
+      "name": "Edu Gonzalo Almorox"
+  },
+  "copyrightYear" : " - 2018",
+  "datePublished": "2018-11-21T00:00:00+00:00",
+  "dateModified": "2018-11-21T00:00:00+00:00",
+  "url" : "/post/ageing-in-england/",
+  "wordCount" : "1239",
+  "image" : "/img/portrait.jpg",
+  "keywords" : [ "" ],
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "/img/portrait.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+} </script>
+  
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Edu Gonzalo Almorox</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent">Research</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/publications">Publications</a>
+                
+                  <a href="/post/work-in-progress">Work in progress</a>
+                
+                  <a href="/post/projects">Other projects</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Edu Gonzalo Almorox" href="/">
+            <img class="avatar-img" src="/img/portrait.jpg" alt="Edu Gonzalo Almorox" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Animating administrative data</h1>
+              
+              
+              
+                
+                  <h2 class="post-subheading">Looking at the ageing of the population in England</h2>
+                
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on November 21, 2018
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the <a href="https://ec.europa.eu/eurostat/web/products-datasets/-/tps00198">old-age dependency ratio</a> (OADR).</p>
+<p>The process is relatively nice and easy. It consists of three core steps:</p>
+<ul>
+<li><p>Load the geographical data and select the information for England</p></li>
+<li><p>Arrange the data into a tidy format</p></li>
+<li><p>Plot the data in a faceted way</p></li>
+</ul>
+<div id="load-the-data" class="section level3">
+<h3>Load the data</h3>
+<p>First things first, let’s get the geographical information (aka. the <a href="https://en.wikipedia.org/wiki/Shapefile">shapefile</a>) on board. Before, this was a bit messy process but this is extremely easy with <code>sf::read_sf()</code>. The Office of National Statistics offers <a href="https://www.ons.gov.uk/methodology/geography/ukgeographies">geographical information</a> at several levels for the whole United Kingdom. I am only interested in the information referred to the 326 districts in England (denominated with <code>E0...</code> )</p>
+<pre class="r"><code>england = sf::read_sf(&quot;./data/geography/england_lad_2017/Local_Authority_Districts_December_2017_Ultra_Generalised_Clipped_Boundaries_in_United_Kingdom_WGS84.shp&quot;) %&gt;% 
+  filter(str_detect(lad17cd, &quot;^E0&quot;)) </code></pre>
+<p>The data created is a tibble</p>
+<pre><code>## Simple feature collection with 5 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 418796.4 ymin: 506491 xmax: 478259.4 ymax: 537164.9
+## epsg (SRID):    NA
+## proj4string:    +proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +datum=OSGB36 +units=m +no_defs
+## # A tibble: 5 x 11
+##   objectid lad17cd lad17nm lad17nmw  bng_e  bng_n  long   lat st_areasha
+##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1        1 E06000… Hartle… &lt;NA&gt;     447157 531476 -1.27  54.7  96586817.
+## 2        2 E06000… Middle… &lt;NA&gt;     451141 516887 -1.21  54.5  54741668.
+## 3        3 E06000… Redcar… &lt;NA&gt;     464359 519597 -1.01  54.6 247140467.
+## 4        4 E06000… Stockt… &lt;NA&gt;     444937 518183 -1.31  54.6 206473805.
+## 5        5 E06000… Darlin… &lt;NA&gt;     428029 515649 -1.57  54.5 198298966.
+## # ... with 2 more variables: st_lengths &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [m]&gt;</code></pre>
+<p>The second main source of information refers to the OADR. The data covers years 1996 to 2036<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> in periods of 10 years. The names of the variables in the information of the ONS are not particularly clean so <code>janitor::clean_names()</code> does a splendid job here.</p>
+<pre class="r"><code>ageing = read_excel(&quot;data/raw/ons_uk_ageing.xls&quot;, sheet = &quot;Old Age Dependency Ratio&quot; ) %&gt;%
+  clean_names() %&gt;%
+  filter(str_detect(area_code, &quot;^E0&quot;)) </code></pre>
+</div>
+<div id="tidy-the-data" class="section level3">
+<h3>Tidy the data</h3>
+<p>The key is to present the data in long format having a <code>time</code> and a <code>dependency</code> variable for each decade and old age dependency ratio respectively. <code>tidyr::gather()</code> may be a good option here.</p>
+<pre class="r"><code>ageing = ageing %&gt;%
+  gather(year, dependency, x1996:x2036, -area_code, -area_name) %&gt;%
+  mutate(year = gsub(&quot;x&quot;, &quot;&quot;, year)) %&gt;%
+  arrange(area_code, year)</code></pre>
+<pre><code>## # A tibble: 5 x 4
+##   area_code area_name  year  dependency
+##   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;
+## 1 E06000001 Hartlepool 1996        244.
+## 2 E06000001 Hartlepool 2006        261.
+## 3 E06000001 Hartlepool 2016        303.
+## 4 E06000001 Hartlepool 2026        384.
+## 5 E06000001 Hartlepool 2036        480.</code></pre>
+<p>Also, to fill the map I convert the OADR into a factor variable with <code>dplyr::ntile()</code> and link it to the data frame with geographical data (<code>england</code>). I create a variable <code>lab_dep</code> with the max and min value of each tile and that I will use as label for the represented variable.</p>
+<pre class="r"><code>ageing = ageing %&gt;%
+  mutate(quintile_dep = ntile(dependency, 7), 
+         lab_dep = as.factor(ordered(case_when(quintile_dep == 1 ~ &quot;[81 - 218)&quot;, 
+                                               quintile_dep == 2 ~ &quot;[218 - 250)&quot;, 
+                                               quintile_dep == 3 ~ &quot;[250 - 283)&quot;,
+                                               quintile_dep == 4 ~ &quot;[283 - 329)&quot;,
+                                               quintile_dep == 5 ~ &quot;[329 - 392)&quot;, 
+                                               quintile_dep == 6 ~ &quot;[392 - 478)&quot;, 
+                                               quintile_dep == 7 ~ &quot;[478 - 928)&quot;)))) 
+
+
+england_ext = full_join(england, ageing, by = c(&quot;lad17cd&quot; = &quot;area_code&quot;, &quot;lad17nm&quot; =&quot;area_name&quot;) )
+
+england_ext$quintile_dep = as.factor(england_ext$quintile_dep)</code></pre>
+<pre><code>## Observations: 1,630
+## Variables: 15
+## $ objectid     &lt;dbl&gt; 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4...
+## $ lad17cd      &lt;chr&gt; &quot;E06000001&quot;, &quot;E06000001&quot;, &quot;E06000001&quot;, &quot;E06000001...
+## $ lad17nm      &lt;chr&gt; &quot;Hartlepool&quot;, &quot;Hartlepool&quot;, &quot;Hartlepool&quot;, &quot;Hartle...
+## $ lad17nmw     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
+## $ bng_e        &lt;dbl&gt; 447157, 447157, 447157, 447157, 447157, 451141, 4...
+## $ bng_n        &lt;dbl&gt; 531476, 531476, 531476, 531476, 531476, 516887, 5...
+## $ long         &lt;dbl&gt; -1.27023, -1.27023, -1.27023, -1.27023, -1.27023,...
+## $ lat          &lt;dbl&gt; 54.67616, 54.67616, 54.67616, 54.67616, 54.67616,...
+## $ st_areasha   &lt;dbl&gt; 96586817, 96586817, 96586817, 96586817, 96586817,...
+## $ st_lengths   &lt;dbl&gt; 50245.93, 50245.93, 50245.93, 50245.93, 50245.93,...
+## $ year         &lt;chr&gt; &quot;1996&quot;, &quot;2006&quot;, &quot;2016&quot;, &quot;2026&quot;, &quot;2036&quot;, &quot;1996&quot;, &quot;...
+## $ dependency   &lt;dbl&gt; 244.1609, 261.2594, 303.0965, 384.3626, 479.5169,...
+## $ quintile_dep &lt;fct&gt; 2, 3, 4, 5, 7, 2, 2, 2, 4, 5, 3, 3, 5, 6, 7, 2, 2...
+## $ lab_dep      &lt;ord&gt; [218 - 250), [250 - 283), [283 - 329), [329 - 392...
+## $ geometry     &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((448801.4 53..., MULT...</code></pre>
+</div>
+<div id="plot-the-data" class="section level3">
+<h3>Plot the data</h3>
+<p>Let´s begin plotting the OADR for 2016. <code>sf::geom_sf()</code> seems to be a simpler solution to other alternatives such as <code>ggplot:geom_polygon()</code>.</p>
+<pre class="r"><code> england_ext %&gt;%
+  filter(year == &quot;2016&quot;) %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1)</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-9-1.png" width="1344" /></p>
+<p>Not too bad. Yet, what is the picture over time?.</p>
+<pre class="r"><code>plot_ageing = england_ext %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1, 
+                     guide = guide_legend(
+                       direction = &quot;horizontal&quot;,
+                       title.position = &quot;top&quot;,
+                       title.hjust =0.5)) +
+  facet_wrap(~ year, ncol = 3)</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-11-1.png" width="1344" /></p>
+<p>The key line is the <code>facet_wrap()</code> call which allows to facet <code>OADR</code> over <code>years</code>. A bit of fine tunning with some options in <code>theme()</code> give a cleaner plot.</p>
+<pre class="r"><code>plot_ageing +
+  theme(axis.text = element_blank()
+        ,axis.title = element_blank()
+        ,axis.ticks = element_blank()
+        ,axis.line=element_blank()
+        ,panel.grid = element_blank()
+        ,legend.text = element_text(size = 10)
+        ,legend.key.width = unit(0.35,&quot;cm&quot;)
+        ,legend.key.height = unit(0.35,&quot;cm&quot;)
+        ,plot.title = element_text(size= 6)
+        ,legend.position = &quot;bottom&quot;
+        ,plot.caption = element_text()
+        ,legend.background = element_blank()
+        ,panel.background = element_blank()
+        ,legend.spacing.x = unit(0.25, &#39;cm&#39;)
+        ,strip.text.x = element_text(size = 12)) </code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-12-1.png" width="1344" /></p>
+</div>
+<div id="animate-the-plot" class="section level3">
+<h3>Animate the plot</h3>
+<p>We can combine the former plots by creating an animated map with <code>gganimate::animate()</code>. Here the main difference with respect to a simple plot in <code>ggplot()</code> is the incorporation of <code>transition_manual()</code> that specifies the transition in the map.</p>
+<pre class="r"><code>aniplot = england_ext %&gt;%
+  mutate(lab_dep = gsub(&quot;[[:alpha:]]&quot;, &quot;&quot;, lab_dep)) %&gt;%
+  rename(OADR = quintile_dep) %&gt;%
+  ggplot(., aes(x = long, y = lat, fill = OADR)) + 
+  geom_sf(colour = alpha(&quot;grey&quot;, 1 /3), size = 0.2) +
+  coord_sf( datum = NA) +
+  labs(title = &quot;Old Age Dependency Ratio (OADR)&quot;,
+       subtitle = &#39;Year: {current_frame}&#39;) +
+  transition_manual(year) + 
+  scale_fill_viridis(option = &quot;viridis&quot;,
+                     labels = c(&quot;[81 - 218)&quot;, &quot;[218 - 250)&quot;, &quot;[250 - 283)&quot;, &quot;[283 - 329)&quot;, &quot;[329 - 392)&quot;, &quot;[392 - 478)&quot;,&quot;[478 - 928)&quot;),
+                     alpha = 0.85, 
+                     discrete = T, 
+                     direction = -1, 
+                     guide = guide_legend(
+                       direction = &quot;horizontal&quot;,
+                       title.position = &quot;top&quot;,
+                       title.hjust =0.5)) +
+  theme(axis.text = element_blank()
+        ,axis.title = element_blank()
+        ,axis.ticks = element_blank()
+        ,axis.line=element_blank()
+        ,panel.grid = element_blank()
+        ,legend.title = element_blank()
+        ,legend.text = element_text(size = 14)
+        ,legend.key.width = unit(0.35,&quot;cm&quot;)
+        ,legend.key.height = unit(0.5,&quot;cm&quot;)
+        ,plot.title = element_text(size= 22)
+        ,plot.subtitle=element_text(size=18)
+        ,legend.position = &quot;bottom&quot;
+        ,plot.caption = element_text()
+        ,legend.background = element_blank()
+        ,panel.background = element_blank()
+        ,legend.spacing.x = unit(0.25, &#39;cm&#39;))</code></pre>
+<p><img src="/post/2018-11-11-ageing-in-england_files/figure-html/unnamed-chunk-14-1.gif" /><!-- --></p>
+<p>The code and data to reproduce the figures are <a href="https://github.com/edugonzaloalmorox/dynamic_maps">available on Github</a>.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Data for 2026 and 2036 are projections<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2fageing-in-england%2f&amp;text=Animating%20administrative%20data&amp;via=EdudinGonzalo" target="_blank" title="Share on Twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2fageing-in-england%2f" target="_blank" title="Share on Google Plus">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fageing-in-england%2f" target="_blank" title="Share on Facebook">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2fageing-in-england%2f&amp;title=Animating%20administrative%20data" target="_blank" title="Share on Reddit">
+          <i class="fa fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2fageing-in-england%2f&amp;title=Animating%20administrative%20data" target="_blank" title="Share on LinkedIn">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2fageing-in-england%2f&amp;title=Animating%20administrative%20data" target="_blank" title="Share on StumbleUpon">
+          <i class="fa fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2fageing-in-england%2f&amp;description=Animating%20administrative%20data" target="_blank" title="Share on Pinterest">
+          <i class="fa fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+              </ul>
+            </section>
+        
+
+        
+          
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/what-is-this-about/" data-toggle="tooltip" data-placement="top" title="What is this about?">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:eduardogonzaloalmorox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/edugonzaloalmorox" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/EdudinGonzalo" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/eduardo-gonzalo-almorox-5b8b4955" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/5823126/edu" title="StackOverflow">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Edu Gonzalo Almorox
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2018
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">Edu Gonzalo Almorox</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.50</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = '';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+
+
+
+  </body>
+</html>
+

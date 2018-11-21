@@ -7,18 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Sun, 04 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Care homes in England</title>
-      <link>/post/care-homes-in-england/</link>
-      <pubDate>Sun, 04 Nov 2018 00:00:00 +0000</pubDate>
+      <title>Animating administrative data</title>
+      <link>/post/ageing-in-england/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
-      <guid>/post/care-homes-in-england/</guid>
-      <description></description>
+      <guid>/post/ageing-in-england/</guid>
+      <description>England as other developed countries is ageing. Is this process going to increase, stabilise, decrease …? The Office of National Statistics regularly releases information on population trends. In this post I look at the old-age dependency ratio (OADR).
+The process is relatively nice and easy. It consists of three core steps:
+ Load the geographical data and select the information for England
+ Arrange the data into a tidy format</description>
     </item>
     
     <item>
@@ -44,6 +47,15 @@ The idea of this website is to contribute to the community and show case studies
     </item>
     
     <item>
+      <title>Projects</title>
+      <link>/post/projects/</link>
+      <pubDate>Mon, 23 Jul 2018 21:13:14 -0500</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/projects/</guid>
+      <description>Coming soon …!</description>
+    </item>
+    
+    <item>
       <title>Publications</title>
       <link>/post/publications/</link>
       <pubDate>Mon, 23 Jul 2018 21:13:14 -0500</pubDate>
@@ -60,9 +72,9 @@ The idea of this website is to contribute to the community and show case studies
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
       <guid>/page/about/</guid>
-      <description>I am a PhD researcher in Economics at Newcastle University. My main research interests are applied economics with a particular focus on health and computational social science.
-I am currently investigating empirical issues in the market for adult long term (social) care in England. I am also interested in elements associated with unhealthy behaviours and tools for open science.
-Before my PhD, I was a NIHR reserch methods fellow in the Health Economics Group at Newcastle University and prior to that I held several positions as economist in the industry.</description>
+      <description>I am a PhD researcher in Economics at Newcastle University. I am mainly interested in questions about applied economics with a particular focus on health and computational social science.
+I am currently investigating empirical issues in the market for adult long term (social) care in England. I am also involved in projects associated with unhealthy behaviours and tools for open science.
+Before my PhD, I was a NIHR reserch methods fellow in the Health Economics Group at Newcastle University and prior to that I held several positions as an economics consultant at Funcas and the European Corporate Affairs Office at Banco Santander.</description>
     </item>
     
   </channel>
