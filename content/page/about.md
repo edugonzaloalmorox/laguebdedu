@@ -3,7 +3,7 @@ title: Me in a nutshell....
 subtitle: 
 comments: false
 ---
-I am a PhD candidate in Economics at [Newcastle University](http://www.ncl.ac.uk/business-school/). I am mainly interested in questions about applied economics with a particular focus on health and [computational social science](https://en.wikipedia.org/wiki/Computational_social_science).
+I am a PhD candidate in Economics at [Newcastle University](http://www.ncl.ac.uk/business-school/). My research interests lie in applied economics with a particular focus on health and [computational social science](https://en.wikipedia.org/wiki/Computational_social_science).
 
 I am currently investigating empirical issues in the market for adult long term (social) care in England. I am also involved in projects associated with unhealthy behaviours and tools for open science.
 
