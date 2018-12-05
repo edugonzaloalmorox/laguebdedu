@@ -102,7 +102,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "post/projects"
     weight = 3
 
+
 [[menu.main]]
     name = "Tags"
     url = "tags"
-    weight = 3
+    weight = 4

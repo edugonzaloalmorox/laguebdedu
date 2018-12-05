@@ -1,0 +1,150 @@
+---
+title: Mapping the quality of adult social care
+author: Edu Gonzalo
+date: '2018-11-30'
+slug: care-homes-england
+categories: []
+tags:
+  - leaflet
+  - quality
+  - care homes
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=9,
+                      echo=FALSE, warning=FALSE, message=FALSE)
+```
+
+```{r, echo = FALSE}
+
+library(tidyverse)
+library(readr)
+library(leaflet)
+library(janitor)
+library(hrbrthemes)
+library(knitr)
+library(htmltools)
+library(htmlwidgets)
+
+```
+
+A key element for a health system is the quality of their services. Knowing how good (or bad) health centres are doing may be useful for policy makers to assess their performance and propose improvements. For other services such as residential and nursing care homes, quality is an important aspect to motivate the choice of certain premises over others. 
+
+
+In this post I look at the quality of care homes. Every month, the [CQC](https://www.cqc.org.uk/) releases information relative to the [quality inspections](https://www.cqc.org.uk/what-we-do/how-we-do-our-job/what-we-do-inspection) carried out in care homes. Care homes may obtain [4 ratings](https://www.cqc.org.uk/what-we-do/how-we-do-our-job/ratings): Outstanding, Good, Requires Improvement and Inadequate. I compile a `data.frame` that contains information on all registered care homes up to October 2018. A simplified version of this `data.frame`
+
+
+
+```{r, echo = TRUE,  include= TRUE, message = FALSE}
+
+care_homes = read_csv("data/care-homes-2018-clean.csv")  %>% 
+  filter(location_status == "active") %>%
+  select(location_id, location_name, 
+         location_latest_overall_rating, 
+         location_longitude, 
+         location_latitude, 
+         location_region) 
+
+glimpse(care_homes)
+
+
+```
+
+```{r, echo = FALSE,  include= TRUE, message = FALSE}
+care_homes$location_latest_overall_rating = fct_relevel(care_homes$location_latest_overall_rating, "Outstanding", "Good", "Requires improvement", "Inadequate")
+
+```
+
+
+### How is the quality of care homes per region? 
+
+Are some regions having relatively better (or worse) care homes than others? Using grouped operations with `dplyr::group_by()` and `janitor::tabyl()` it is possible to create the following frequency table. 
+
+
+```{r, echo  = TRUE , include= TRUE, message = FALSE}
+
+care_homes %>%
+  filter(location_region != "Unspecified", !is.na(location_latest_overall_rating)) %>%
+  rename(Region = location_region, Rating = location_latest_overall_rating) %>%
+  group_by(Region) %>%
+  tabyl(Region, Rating) %>%
+  adorn_totals("row") %>%
+  adorn_percentages("row") %>%
+  adorn_pct_formatting() %>%
+  adorn_ns() %>%
+  adorn_title("combined") %>%
+  kable()
+
+  
+```
+ 
+Most care homes are good - although only a 2% are classified as "Outstanding". More worringly, about a 20% are "Inadequate"" or "Require improvements".  The South West is the region with a higher proportion of excellent care homes whereas the North West registers the greatest proportion of inadequate care homes. London is the region with less proportion of care homes in both quality extremes. 
+
+### Where are the care homes?
+
+A nice option is to create an interactive map with `leaflet()` that enables to select each category. To do that there are two previous steps: 
+
+- Define the colour palette.
+- Create data frames considering each category.
+ 
+ 
+```{r, echo  = TRUE, include= TRUE, message = FALSE}
+
+# Define  palette
+pal <- colorFactor(palette = c("dodgerblue3", "aquamarine4", "darkorange1", "firebrick2"), 
+                   levels = c("Outstanding", "Good", "Requires improvement", "Inadequate"))
+
+
+# Define datasets according to their quality
+outstanding = care_homes %>% filter(location_latest_overall_rating == "Outstanding")
+good = care_homes %>% filter(location_latest_overall_rating == "Good")
+improvement = care_homes %>% filter(location_latest_overall_rating == "Requires improvement")
+inadequate = care_homes %>% filter(location_latest_overall_rating == "Inadequate")
+
+```
+
+The map uses to main functions `leaflet::addCircleMarkers()` and `leaflet::addLayersControl()` that control the characteristics of the points and the layers that are displayed. 
+
+```{r, echo  = TRUE, include= TRUE, message = FALSE}
+
+leaflet() %>% 
+        addProviderTiles("CartoDB", group = "Carto") %>% 
+        addCircleMarkers(data = outstanding,
+                         radius = 0.2,
+                         weight = 0.75,
+                         lng = ~location_longitude, lat = ~location_latitude, 
+                         label = ~htmlEscape(location_name),
+                         color = ~pal(location_latest_overall_rating),  group = "Outstanding") %>% 
+        addCircleMarkers(data = good,
+                         radius = 0.2,
+                         weight = 0.75,
+                         lng = ~location_longitude, lat = ~location_latitude, 
+                         label = ~htmlEscape(location_name),
+                           color = ~pal(location_latest_overall_rating), group = "Good")  %>% 
+        addCircleMarkers(data = improvement, 
+                         radius = 0.2,
+                         weight = 0.75,
+                        lng = ~location_longitude, lat = ~location_latitude, 
+                         label = ~htmlEscape(location_name),
+                         color = ~pal(location_latest_overall_rating), group = "Requires improvement")  %>% 
+        addCircleMarkers(data = inadequate, 
+                         radius = 0.2,
+                         weight = 0.75,
+                        lng = ~location_longitude, lat = ~location_latitude, 
+                         label = ~htmlEscape(location_name),
+                         color = ~pal(location_latest_overall_rating), group = "Inadequate") %>% 
+          addLayersControl(overlayGroups = c("Outstanding", "Good", "Requires improvement", "Inadequate")) %>% 
+           setView(lng = 1, lat = 53, zoom = 5.85)
+
+
+
+
+
+
+```
+
+*Et voilà*. I hope this post helps to have a clearer idea about the current quality of care homes that provide adult social care. 
+
+
+

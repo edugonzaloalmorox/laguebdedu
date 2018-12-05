@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/care-homes-england/</loc>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/ageing-in-england/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
   </url>
@@ -40,13 +45,19 @@
   </url>
   
   <url>
+    <loc>/tags/care-homes/</loc>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -59,6 +70,12 @@
   <url>
     <loc>/tags/hugo/</loc>
     <lastmod>2018-11-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/leaflet/</loc>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -79,7 +96,13 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/quality/</loc>
+    <lastmod>2018-11-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -87,6 +110,10 @@
     <loc>/categories/r/</loc>
     <lastmod>2018-11-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/page/resume/</loc>
   </url>
   
   <url>

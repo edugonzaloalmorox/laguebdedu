@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mapping the quality of adult social care</title>
+      <link>/post/care-homes-england/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/care-homes-england/</guid>
+      <description>A key element for a health system is the quality of their services. Knowing how good (or bad) health centres are doing may be useful for policy makers to assess their performance and propose improvements. For other services such as residential and nursing care homes, quality is an important aspect to motivate the choice of certain premises over others.
+In this post I look at the quality of care homes.</description>
+    </item>
     
     <item>
       <title>Animating administrative data</title>
