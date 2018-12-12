@@ -146,5 +146,7 @@ leaflet() %>%
 
 *Et voilà*. I hope this post helps to have a clearer idea about the current quality of care homes that provide adult social care. 
 
+The whole code is on [Github](https://github.com/edugonzaloalmorox/care-homes-leaflet)
+
 
 
