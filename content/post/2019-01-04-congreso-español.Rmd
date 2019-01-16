@@ -1,0 +1,309 @@
+---
+title: El 2018 en el Congreso español
+author: 'Edu Gonzalo'
+date: '2019-01-16'
+slug: congreso-español
+categories: []
+tags: []
+subtitle: ''
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+La semana pasada arrancaba el año en el Congreso de los diputados. El 2018 dejó varios momentos que sin duda serán carne de hemeroteca. Entre los episodios con más seguimiento mediático destacaron la aprobación de la [primera moción de censura](https://elpais.com/tag/mociones_censura/a) contra un gobierno en democracia o la expulsión la [expulsión](https://www.youtube.com/watch?v=cAZymXL4NnQ) forzosa de un diputado del hemiciclo por su comportamiento (el [segundo](https://www.youtube.com/watch?v=lKLilXUs7Uw) de la democracia).
+
+Pero, qué otras cosas caracterizaron la actividad parlamentaria durante 2018? A continuación algunas curiosidades referidas a las sesiones en el Congreso durante el año que acaba de concluir.
+
+
+
+```{r, echo  = FALSE, include = TRUE, warning = FALSE, message = FALSE }
+
+library(rvest)
+library(tidyverse)
+library(pdftools)
+library(lubridate)
+library(hrbrthemes)
+
+congress = read_csv("./data/congress.csv")
+
+
+```
+
+### Cuándo se reúnen los diputados 
+
+Los diputados no se reúnen en el Congreso todos los días de la semana. De hecho, los días de mayor actividad parlamentaria son claramente de Martes a Jueves - especialmente los miércoles. Además, no todos los días son sesiones nuevas. Algunos días, sobre todo a partir de los Miércoles, las sesiones reanudan la agenda de la sesión anterior. 
+
+```{r, echo=FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+library(lubridate)
+library(hrbrthemes)
+
+congress %>%
+   filter(!is.na(session_type), date_clean >= "2018-01-01")  %>%
+  mutate(day_week = wday(date_clean, label = T)) %>%
+  group_by(document) %>%
+  filter(row_number() == 1) %>%
+  ungroup() %>%
+  group_by(day_week, session_type) %>%
+  tally() %>%
+  ggplot() + 
+  geom_bar(aes(x = day_week, y = n, fill = session_type), stat = "identity", alpha = 0.75) + 
+  theme_ipsum(grid = "") + 
+  scale_y_continuous(limits = c(0, 30), 
+                     breaks = seq(0, 30, by = 5)) +
+  labs(title = "Reuniones diarias del Congreso", x= "",  y = "", caption = "Fuente: congreso.es | @EduGonzalo") +
+  scale_fill_discrete(name = "Tipo de sesión") 
+
+
+
+
+
+```
+
+Tampoco todos los meses de año son igual de intensos en cuanto a actividad parlamentaria. Durante 2018 hubo dos meses, enero y agosto, donde sus señorías no se reunieron ni una sola vez. Como a partir de junio hubo un cambio de gobierno, es posible ver si hubo cambios aparentes en la frecuencia de reuniones en el parlamento. Con la entrada del gobierno del PSOE se produjo un aumento progresivo de la actividad parlamentaria que alcanzó en octubre el mayor número de sesiones en el año: 10 reuniones en total. El segundo mes con más reuniones fue mayo con un total de 9 reuniones.
+
+```{r, echo = FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+congress  %>%
+  group_by(document) %>%
+   mutate(month = month(date_clean, label = T))%>%
+  filter(row_number() == 1) %>%
+  ungroup() %>%
+  group_by(month) %>%
+  tally() %>%
+  mutate(Gobierno = ifelse(month %in% c("Jun", "Jul", "Sep", "Oct", "Nov", "Dec"), "PSOE", "PP")) %>%
+  ggplot(., aes(month, n, fill = Gobierno)) + 
+  geom_col(alpha = 0.75) + 
+  scale_y_continuous(limits = c(0, 10), 
+                     breaks = seq(0, 10, by = 1)) + 
+  scale_fill_manual(values = c("deepskyblue1", "firebrick2")) +
+  theme_ipsum(grid = "") + 
+  labs(title = "Sesiones plenarias mensuales", subtitle = "El Gobierno del PSOE toma posesión en Junio 2018", 
+       x= "",  y = "",
+       caption = "Fuente: congreso.es | @EduGonzalo")
+
+```
+
+### Más sesiones, ¿más contenido?
+
+Una mayor frecuencia de sesiones no implica necesariamente mejores discusiones o discusiones de políticas con más temas de interés para la ciudadanía. Una buena aproximación para hacerse una idea de estas cuestiones puede ser analizar el contenido de las comparecencias. En primer lugar, cabe preguntarse cuán largas son las sesiones de un mes a nivel agregado. Aunque octubre fue el mes con más sesiones, el mes en el que más se habló fue mayo.
+
+
+```{r, echo=FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+library(tidytext)
+library(stopwords)
+
+es_stop = stopwords::stopwords("es", source = "stopwords-iso") 
+es_stop = data.frame(word = es_stop)
+
+
+
+congress_long = congress %>%
+  unnest_tokens(word, text, token = "ngrams", n = 1, to_lower = TRUE) %>%
+  anti_join(es_stop, by = "word") %>%
+  filter(!word %in% c( "pág", "página", "cve", "dscd", "pl", "gracias", "congreso",
+                       "diputados","pleno", "diputados", "congreso", "diputación",
+                       "diario", "sesiones", "núm", "presidente", "presidenta",
+                       "permanente", "señor", "señora", "señorías", "señores",
+                       "señoras", "partido", "doña", "don",
+                      "grupo", "parlamentario", "aplausos", "gobierno")) 
+
+congress_long$word = tm::removeNumbers(congress_long$word) 
+
+congress_long = congress_long %>%
+  filter(word !="") 
+
+
+
+congress_long %>% 
+  mutate(month = month(date_clean, label = T)) %>%
+  group_by(month) %>%
+  summarise(word_count = n()) %>%
+  ggplot(aes(x = month, y = word_count)) +
+  geom_bar(stat = "identity", fill = alpha("lightseagreen", 0.7)) +
+  ylim(-200000, 200000) +
+  coord_polar(start = 0) +
+  theme_ipsum() +
+  theme(axis.text.y  = element_blank(),
+        panel.grid = element_blank()) +
+  labs(y = "", x = "", title = "¿En qué meses se habló más?", subtitle = "Número de palabras al mes", 
+       caption = "Fuente: congreso.es | @EduGonzalo")
+```
+
+
+Viendo a las sesiones de forma individual, las sesiones más largas se celebraron en mayo y en diciembre. Mayo tuvo dos sesiones parlamentarias (la propuesta de Presupuestos del Estado 22 y 23 de mayo) y la moción de censura que implicó la intervención de todos los grupos en la Cámara la propuesta del nuevo Gobierno del PSOE y la consiguiente réplica del PP. La sesión del 12 de diciembre fue una sesión parlamentaria en la que el presidente del Gobierno compareció para [informar](https://elpais.com/politica/2018/12/12/actualidad/1544599140_067095.html) sobre el acuerdo alcanzado por la Unión Europea y el Reino Unido sobre el Brexit y debatir sobre Cataluña.   
+
+```{r, echo= FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+congress_long %>% 
+  mutate(month = month(date_clean, label = T)) %>%
+  mutate(Gobierno = ifelse(month %in% c("Jun", "Jul", "Sep", "Oct", "Nov", "Dec"), "PSOE", "PP")) %>%
+  group_by(sesion, date_clean, Gobierno) %>%
+  summarise(word_count = n()) %>%
+  arrange(desc(word_count)) %>%
+  ungroup() %>%
+  top_n(15, word_count) %>%
+  ggplot(., aes(reorder(date_clean, word_count), word_count, fill = Gobierno)) + 
+  geom_col(alpha = 0.75) + 
+  scale_fill_manual(values = c("deepskyblue1", "firebrick2")) +
+  coord_flip() + 
+  theme_ipsum(grid = "") + 
+  labs(title = "Sesiones más largas", subtitle = "Número de palabras por sesión",  x= " ",  y = "Número de palabras",  caption = "Fuente: congreso.es | @EduGonzalo") 
+  
+```
+
+### Más interrupciones con el Gobierno del PSOE
+
+Las sesiones de 2018 dieron la impresión en algunos casos de tener un tono bronco que interrumpía las intervenciones de los diputados. Aunque es difícil de medir, una buena manera de aproximar las interrupciones en el congreso es observando las veces que la Presidenta del Congreso se ve obligada a interrumpir el debate para pedir silencio.  
+
+
+```{r, echo=FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+congress_long %>% 
+  mutate(month = month(date_clean, label = T)) %>%
+  mutate(Gobierno = ifelse(month %in% c("Jun", "Jul", "Sep", "Oct", "Nov", "Dec"), "PSOE", "PP")) %>%
+  group_by(sesion, date_clean, Gobierno) %>%
+  filter(word == "silencio") %>%
+  summarise(silencio_count = n()) %>%
+  arrange(desc(silencio_count)) %>%
+  ungroup() %>%
+  top_n(15, silencio_count) %>%
+  ggplot(., aes(reorder(date_clean, silencio_count), silencio_count, fill = Gobierno)) + 
+  geom_col(alpha = 0.75) + 
+  scale_fill_manual(values = c("deepskyblue1", "firebrick2")) +
+  coord_flip() + 
+  theme_ipsum(grid = "") + 
+  labs(title = "Interrupciones de las sesiones", subtitle = "Peticiones de silencio",  x= " ",  y = "Número de veces", caption = "Fuente: congreso.es | @EduGonzalo") 
+
+```
+
+Las sesiones con más interrupciones fueron, respectivamente, la sesión de la moción de censura (74 interrupciones) y la de comparecencia sobre el acuerdo del Brexit (53 interrupciones). Esto es curioso dado el carácter europeísta de la mayoría de los partidos de la Cámara. En todo caso, considerando las 15 sesiones con más interrupciones, la presidenta tuvo que pedir silencio más veces bajo el mandato del PSOE. Considerando otra vez las 15 sesiones con más interrupciones, la presidenta pidió silencio una media de 41 veces. 
+
+### De qué se habló durante los distintos Gobiernos
+
+Aunque las sesiones más “accidentadas” se produjeron bajo el gobierno del PSOE, ello no implica que el tono de las sesiones fuera muy diferente con respecto a las sesiones del PP.  Midiendo las palabras más frecuentes durante ambos gobiernos vemos que hay bastantes palabras que coinciden. No obstante, también hay palabras particulares para cada gobierno. Destacan __“presupuestos”__ durante el mandato de PP y __“ministra"__ o __“cataluña”__ durante el mandato del PSOE. La últimas estén asociadas probablemente a dos hechos. Por un lado, la composición del ejecutivo de Pedro Sánchez [con más mujeres](https://www.france24.com/es/20180606-espana-pedro-sanchez-ministros-mujeres) que hombres. Por otro, la estrategia [acercar posturas](https://www.europapress.es/illes-balears/noticia-armengol-cree-gobierno-intenta-acercar-posturas-cataluna-ve-irresponsable-actitud-generalitat-20181213144628.html) con el Govern catalán ante la crisis en Cataluña. 
+
+
+```{r, echo=FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+library(devtools)
+library(tidyverse)
+library(tidytext)
+library(lubridate)
+
+reorder_within <- function(x, by, within, fun = mean, sep = "___", ...) {
+  new_x <- paste(x, within, sep = sep)
+  stats::reorder(new_x, by, FUN = fun)
+  
+}
+
+scale_x_reordered <- function(..., sep = "___") {
+  reg <- paste0(sep, ".+$")
+  ggplot2::scale_x_discrete(labels = function(x) gsub(reg, "", x), ...)
+}
+
+scale_y_reordered <- function(..., sep = "___") {
+  reg <- paste0(sep, ".+$")
+  ggplot2::scale_y_discrete(labels = function(x) gsub(reg, "", x), ...)
+}
+
+``` 
+
+
+
+
+```{r, echo= FALSE , include = TRUE, message = FALSE, warning = FALSE, eval = TRUE}
+
+congress_long %>% 
+    mutate(month = month(date_clean, label = T)) %>%
+    mutate(Gobierno = ifelse(month %in% c("Jun", "Jul", "Sep", "Oct", "Nov", "Dec"), "PSOE", "PP")) %>%
+    count(Gobierno, word, sort = TRUE) %>%
+    group_by(Gobierno) %>%
+    top_n(15) %>%
+    ungroup() %>%
+      ggplot(aes(reorder_within(word, n, Gobierno), n,
+    fill = Gobierno)) +
+    geom_col(alpha = 0.75, show.legend = FALSE) +
+   scale_fill_manual(values = c("deepskyblue1", "firebrick2")) +
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~Gobierno, scales = "free") +
+  theme(strip.text.x = element_text(face = "bold")) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_ipsum(grid = "") + 
+  labs( x = NULL, y = "Número de palabras",
+    title = "Dos gobiernos, ¿distinto talante?",
+    subtitle = "¿Cuáles son las palabras más pronunciadas con Rajoy y Sánchez?", 
+    caption = "Fuente: congreso.es | @EduGonzalo") 
+```
+
+
+
+
+Finalmente, es interesante ver de qué se habló durante cada mes. Es decir, qué palabras fueron las más importantes relativamente en cada mes para cada Gobierno. Para ello se puede obtener la frecuencia de término – frecuencia inversa de documento o [tf-idf](https://es.wikipedia.org/wiki/Tf-idf) que en este caso indicaría la importancia de una palabra durante las sesiones en un mes en comparación con las sesiones en otros meses.
+
+
+
+```{r, echo= FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE, fig.height = 8}
+
+congress_tf_idf <- congress_long %>%
+   mutate(month = month(date_clean, label = T)) %>%
+count(month, word, sort = TRUE) %>%
+    bind_tf_idf(word, month, n) %>%
+    arrange(-tf_idf) %>%
+    group_by(month) %>%
+    top_n(5) %>%
+    ungroup
+
+congress_tf_idf %>%
+    filter(month %in% c("Feb", "Mar", "Apr", "May")) %>%
+    mutate(word = reorder_within(word, tf_idf, month)) %>%
+    ggplot(aes(word, tf_idf, fill = month)) +
+    geom_col(alpha = 0.8, show.legend = FALSE) +
+   scale_fill_manual(values = c("deepskyblue1","deepskyblue1", "deepskyblue1", "deepskyblue1")) + 
+    facet_wrap(~ month, scales = "free", ncol = 2) +
+    scale_x_reordered() +
+    coord_flip() +
+    theme_ipsum(grid = "") + 
+    theme(strip.text=element_text(size=10)) +
+    labs(x = NULL, y = "tf-idf",
+         title = "Palabras más importantes durante el gobierno del PP",
+         subtitle = "Por frecuencia de término - frecuencia inversa de documento (tf-idf)", 
+         caption = "Fuente: congreso.es | @EduGonzalo") 
+```
+
+Hay temas que generaron debate independientemente del Gobierno que hubiera. Por ejemplo, tanto mayo como en octubre se debatieron las regulaciones relativas al taxi y a los vehículos VTC mediante las que se limitaban las licencias para éstos últimos. A día de hoy [parece que el problema está lejos](https://www.lavanguardia.com/vida/20190113/454106140322/una-asamblea-de-taxistas-apuesta-por-ir-a-la-huelga-indefinida-el-21-de-enero.html) de resolverse.
+
+
+```{r, echo= FALSE, include = TRUE, message = FALSE, warning = FALSE, eval = TRUE, fig.height = 10}
+
+congress_tf_idf %>%
+    filter(month %in% c("Jun", "Jul", "Sep", "Oct", "Nov", "Dec")) %>%
+    mutate(word = reorder_within(word, tf_idf, month)) %>%
+    ggplot(aes(word, tf_idf, fill = month)) +
+    geom_col(alpha = 0.8, show.legend = FALSE) +
+   scale_fill_manual(values = c( "firebrick2",  "firebrick2",  "firebrick2",  "firebrick2",  "firebrick2",  "firebrick2")) + 
+    facet_wrap(~ month, scales = "free", ncol = 2) +
+    scale_x_reordered() +
+    coord_flip() +
+     theme_ipsum(grid = "") + 
+    theme(strip.text=element_text(size=10)) +
+    labs(x = NULL, y = "tf-idf",
+         title = "Palabras más importantes durante el gobierno del PSOE",
+         subtitle = "Por frecuencia de término - frecuencia inversa de documento (tf-idf)", 
+         caption = "Fuente: congreso.es | @EduGonzalo") 
+
+
+```
+
+Por otra parte, hubo otras cuestiones que también tuvieron su relevancia. Entre otras, en 2018 se aprobó oficialmente el [día internacional del pueblo gitano](https://cadenaser.com/emisora/2018/04/08/radio_valencia/1523168055_929110.html), continúo el debate sobre la [derogación de la prisión permanente revisable](http://www.rtve.es/noticias/20180312/psoe-podemos-pnv-se-mantienen-favor-derogar-prision-permanente-revisable/1694780.shtml), se eligió una [nueva dirección](https://www.elconfidencial.com/espana/2018-07-10/cortes-activan-unanimidad-concurso-publico-rtve-consejo-administracion-temporal_1590616/) en la radio televisión española (RTVE), se debatió la [reducción en uso de plásticos](https://www.europapress.es/sociedad/noticia-congreso-reclama-estrategia-nacional-reducir-plasticos-reciclaje-100-2030-20180925203745.html) o se discutieron aspectos relacionados con los comicios andaluces. En concreto, hubo dos temas que destacaron: las [irregularidades en las encuestas](https://www.elconfidencial.com/ultima-hora-en-vivo/2018-12-13/tezanos-cis-admite-que-las-encuestas-fallaron-el-voto-cambio-ultima-semana_1779846/) por partes del CIS presidido por José Félix Tezanos y el resultado que llevó a la irrupción de fuerzas populistas de extrema  derecha (Vox) por primera vez desde la democracia.
+
+
+
+Puedes utilizar los datos de esta entrada pinchando [aquí](https://github.com/edugonzaloalmorox/sentiment_congress/blob/master/README.md). 
+
+

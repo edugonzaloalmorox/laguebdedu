@@ -55,11 +55,11 @@ In this post I look at the quality of care homes.",
       "@type": "Person",
       "name": "Edu Gonzalo"
   },
-  "copyrightYear" : " - 2018",
+  "copyrightYear" : " - 2019",
   "datePublished": "2018-12-05T00:00:00+00:00",
   "dateModified": "2018-12-05T00:00:00+00:00",
   "url" : "/post/care-homes-england/",
-  "wordCount" : "33543",
+  "wordCount" : "33546",
   "image" : "/img/portrait.jpg",
   "keywords" : [ "leaflet, quality, care homes" ],
   "publisher" : {
@@ -270,12 +270,12 @@ In this post I look at the quality of care homes.",
 glimpse(care_homes)</code></pre>
 <pre><code>## Observations: 16,076
 ## Variables: 6
-## $ location_id                    &lt;chr&gt; &quot;1-1000210669&quot;, &quot;1-1000401911&quot;,...
-## $ location_name                  &lt;chr&gt; &quot;Kingswood House Nursing Home&quot;,...
-## $ location_latest_overall_rating &lt;chr&gt; &quot;Requires improvement&quot;, &quot;Good&quot;,...
-## $ location_longitude             &lt;dbl&gt; 0.561998, 0.002335, -3.508053, ...
-## $ location_latitude              &lt;dbl&gt; 50.85724, 51.44110, 50.72154, 5...
-## $ location_region                &lt;chr&gt; &quot;South East&quot;, &quot;London&quot;, &quot;South ...</code></pre>
+## $ location_id                    &lt;chr&gt; &quot;1-1000210669&quot;, &quot;1-1000401911&quot;, &quot;…
+## $ location_name                  &lt;chr&gt; &quot;Kingswood House Nursing Home&quot;, &quot;…
+## $ location_latest_overall_rating &lt;chr&gt; &quot;Requires improvement&quot;, &quot;Good&quot;, &quot;…
+## $ location_longitude             &lt;dbl&gt; 0.561998, 0.002335, -3.508053, -1…
+## $ location_latitude              &lt;dbl&gt; 50.85724, 51.44110, 50.72154, 54.…
+## $ location_region                &lt;chr&gt; &quot;South East&quot;, &quot;London&quot;, &quot;South We…</code></pre>
 <div id="how-is-the-quality-of-care-homes-per-region" class="section level3">
 <h3>How is the quality of care homes per region?</h3>
 <p>Are some regions having relatively better (or worse) care homes than others? Using grouped operations with <code>dplyr::group_by()</code> and <code>janitor::tabyl()</code> it is possible to create the following frequency table.</p>
@@ -515,6 +515,10 @@ inadequate = care_homes %&gt;% filter(location_latest_overall_rating == &quot;In
             </li>
           
           
+            <li class="next">
+              <a href="/post/congreso-espa%C3%B1ol/" data-toggle="tooltip" data-placement="top" title="El 2018 en el Congreso español">Next Post &rarr;</a>
+            </li>
+          
         </ul>
       
 
@@ -596,7 +600,7 @@ inadequate = care_homes %&gt;% filter(location_latest_overall_rating == &quot;In
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2018
+            2019
           
 
           
