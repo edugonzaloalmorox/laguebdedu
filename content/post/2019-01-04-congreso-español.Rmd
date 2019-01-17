@@ -1,7 +1,7 @@
 ---
 title: El 2018 en el Congreso español
 author: 'Edu Gonzalo'
-date: '2019-01-16'
+date: '2019-01-17'
 slug: congreso-español
 categories: []
 tags: []
@@ -177,7 +177,7 @@ congress_long %>%
   scale_fill_manual(values = c("deepskyblue1", "firebrick2")) +
   coord_flip() + 
   theme_ipsum(grid = "") + 
-  labs(title = "Interrupciones de las sesiones", subtitle = "Peticiones de silencio",  x= " ",  y = "Número de veces", caption = "Fuente: congreso.es | @EduGonzalo") 
+  labs(title = "Interrupciones de las sesiones", subtitle = "Peticiones de silencio por sesión",  x= " ",  y = "Número de veces", caption = "Fuente: congreso.es | @EduGonzalo") 
 
 ```
 
