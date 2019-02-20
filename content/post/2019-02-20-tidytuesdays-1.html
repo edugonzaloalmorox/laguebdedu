@@ -1,0 +1,76 @@
+---
+title: 'tidytuesdays #1'
+author: 'Edu Gonzalo'
+date: '2019-02-20'
+slug: tidytuesdays-1
+categories:
+  - R
+tags:
+  - tidytuesday
+  - gganimate
+subtitle: ''
+---
+
+
+
+<p>Finally I got myself into the <a href="https://github.com/rfordatascience/tidytuesday">#tidytuesday</a>. This project, promoted by <a href="https://www.jessemaegan.com/post/join-the-r-for-data-science-online-learning-community/">R for Data Science</a>, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the <code>#RStats</code> skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.</p>
+<div id="data-and-visualisation" class="section level2">
+<h2>Data and visualisation</h2>
+<p>The data for this week consisted of sample of <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-19">PhDs awarded by field in the US</a>. The dataset is relatively small with just 5 variables that give information about the broad, major and main field, the year of the award and the number of PhDs awarded.</p>
+<pre class="r"><code>library(tidyverse)
+library(gganimate)
+
+grads = read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-19/phd_by_field.csv&quot;)
+
+glimpse(grads)</code></pre>
+<pre><code>## Observations: 3,370
+## Variables: 5
+## $ broad_field &lt;chr&gt; &quot;Life sciences&quot;, &quot;Life sciences&quot;, &quot;Life sciences&quot;, &quot;…
+## $ major_field &lt;chr&gt; &quot;Agricultural sciences and natural resources&quot;, &quot;Agri…
+## $ field       &lt;chr&gt; &quot;Agricultural economics&quot;, &quot;Agricultural and horticul…
+## $ year        &lt;int&gt; 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008…
+## $ n_phds      &lt;int&gt; 111, 28, 3, 68, 41, 18, 77, 182, 52, 96, 41, 32, 44,…</code></pre>
+<p>For my representation I want to calculate the number of students for each year in each <code>broad_field</code> for each year. Also, I create a variable (<code>lab_clean</code>) with shorter names for the broad fields. It will be helpful for the representation afterwards.</p>
+<pre class="r"><code>check = grads %&gt;%
+  group_by(broad_field, year) %&gt;%
+  tally(n_phds) %&gt;%
+  mutate(lab_clean = case_when(broad_field == &quot;Education&quot; ~ &quot;Edu.&quot;,
+                               broad_field == &quot;Humanities and arts&quot; ~ &quot;Hum.&quot;,
+                               broad_field == &quot;Mathematics and computer sciences&quot; ~ &quot;Sci.&quot;,
+                               broad_field == &quot;Engineering&quot; ~ &quot;Eng.&quot;,
+                               broad_field == &quot;Life sciences&quot; ~ &quot;Lif.&quot;,
+                               broad_field == &quot;Psychology and social sciences&quot; ~ &quot;Soc.&quot;, 
+                               broad_field == &quot;Other&quot; ~ &quot;Oth.&quot;))
+
+head(check)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+## # Groups:   broad_field [1]
+##   broad_field  year     n lab_clean
+##   &lt;chr&gt;       &lt;int&gt; &lt;int&gt; &lt;chr&gt;    
+## 1 Education    2008  6561 Edu.     
+## 2 Education    2009  6528 Edu.     
+## 3 Education    2010  5287 Edu.     
+## 4 Education    2011  4670 Edu.     
+## 5 Education    2012  4803 Edu.     
+## 6 Education    2013  4934 Edu.</code></pre>
+<p>The visualisation is just a combination of <code>geom_line()</code> and <code>gganimate</code>.</p>
+<pre class="r"><code>ggplot(check, aes(year, n, group = broad_field, colour = broad_field)) + 
+  geom_line() + 
+  geom_segment(aes(xend = 2017, yend = n), linetype = 2, colour = &#39;grey&#39;) + 
+  geom_point(size = 2) + 
+  scale_x_continuous(breaks = c(2008:2017)) +
+  geom_text(aes(x = 2017.5, label = lab_clean), hjust = 0) + 
+  transition_reveal(year) + 
+  coord_cartesian(clip = &#39;off&#39;) + 
+  labs(title = &#39;US PhDs Awarded by Board Field since 2008&#39;,
+       y = &#39;Total number of PhDs awarded&#39;, 
+       x = &quot; &quot;,
+       caption = &quot;@EdudinGonzalo&quot;) + 
+  theme_minimal() + 
+  theme(legend.position = &quot;bottom&quot;, 
+        plot.margin = margin(1.5, 1, 1, 1.5), 
+        legend.title = element_blank())</code></pre>
+<p><img src="/post/2019-02-20-tidytuesdays-1_files/figure-html/unnamed-chunk-3-1.gif" /><!-- --></p>
+<p>It seems that the number of PhD graduates in Humanities, Education, Sciences and Engineering have remained stable over time. Social and especially life sciences, however, have increased the amount of postgraduates since 2008.</p>
+<p>Find the code on my <a href="https://github.com/edugonzaloalmorox/tidy-tuesdays/tree/master/week_19_02_2019">Github repository</a>.</p>
+</div>
