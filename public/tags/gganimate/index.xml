@@ -7,20 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Wed, 20 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/gganimate/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>tidytuesdays #1</title>
-      <link>/post/tidytuesdays-1/</link>
-      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
-      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
-      <guid>/post/tidytuesdays-1/</guid>
-      <description>Finally I got myself into the #tidytuesday. This project, promoted by R for Data Science, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the #RStats skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.
-Data and visualisation The data for this week consisted of sample of PhDs awarded by field in the US.</description>
-    </item>
     
     <item>
       <title>Animating administrative data</title>
