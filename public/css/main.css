@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   color: #404040;
   position: relative;
   background: #FFF;
@@ -35,7 +35,7 @@ p a {
 }
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
-  font-weight: 800;
+  font-weight: 650;
 }
 a {
   color: #008AFF;
@@ -136,21 +136,21 @@ img {
 /* --- Navbar --- */
 
 .navbar-custom {
-  background: #F5F5F5;
+  background: #dee3f4;
   border-bottom: 1px solid #EAEAEA;
   font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
 }
 
 .navbar-custom .nav li a {
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
+  text-transform: capitalize;
+  font-size: 14px;
+  letter-spacing: 1.25px;
 }
 
 .navbar-custom .navbar-brand,
 .navbar-custom .nav li a {
   font-weight: 800;
-  color: #404040;
+  color: #3d4d8c;
 }
 
 .navbar-custom .navbar-brand:hover,
@@ -259,7 +259,7 @@ img {
   display: block;
   padding: 10px;
   padding-left: 30px;
-  background: #f5f5f5;
+  background: #dee3f4;
   text-decoration: none !important;
   border-width: 0 1px 1px 1px;
   font-weight: normal;
@@ -296,7 +296,7 @@ img {
 
 footer {
   padding: 30px 0;
-  background: #F5F5F5;
+  background: #dee3f4;
   border-top: 1px #EAEAEA solid;
   margin-top: auto;
   font-size: 14px;
@@ -351,7 +351,7 @@ footer .theme-by {
 
 .post-preview a {
   text-decoration: none;
-  color: #404040;
+  color:#234784;
 }
 
 .post-preview a:focus,
@@ -366,7 +366,7 @@ footer .theme-by {
 }
 .post-preview .post-subtitle {
   margin: 0;
-  font-weight: 300;
+  font-weight: 120;
   margin-bottom: 10px;
 }
 .post-preview .post-meta,
@@ -513,19 +513,19 @@ footer .theme-by {
 .intro-header .page-heading h1,
 .intro-header .tags-heading h1 {
   margin-top: 0;
-  font-size: 50px;
+  font-size: 20px;
 }
 .intro-header .post-heading h1 {
   margin-top: 0;
-  font-size: 35px;
+  font-size: 15px;
 }
 .intro-header .page-heading .page-subheading,
 .intro-header .post-heading .post-subheading {
-  font-size: 27px;
+  font-size: 20px;
   line-height: 1.1;
   display: block;
   font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
-  font-weight: 150;
+  font-weight: 100;
   margin: 10px 0 0;
 }
 .intro-header .post-heading .post-subheading {
@@ -533,7 +533,7 @@ footer .theme-by {
 }
 .intro-header.big-img .page-heading .page-subheading,
 .intro-header.big-img .post-heading .post-subheading {
-  font-weight: 400;
+  font-weight: 200;
 }
 .intro-header.big-img .page-heading hr {
   box-shadow: 1px 1px 3px #000;
@@ -541,14 +541,14 @@ footer .theme-by {
   -moz-box-shadow: 1px 1px 3px #000;
 }
 .intro-header.big-img .post-heading .post-meta {
-  color: #EEE;
+  color: #f4f0ec;
 }
 .intro-header.big-img .img-desc {
   background: rgba(30, 30, 30, 0.6);
   position: absolute;
   padding: 5px 10px;
-  font-size: 11px;
-  color: #EEE;
+  font-size: 15px;
+  color: #f4f0ec;
   font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
   right: 0;
   bottom: 0;
