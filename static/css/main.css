@@ -42,7 +42,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #0085a1;
+  color: #234784;
 }
 blockquote {
   color: #808080;
@@ -624,10 +624,10 @@ footer .theme-by {
 /* --- Pager --- */
 
 .pager li a {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
+  font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1px;
   padding: 10px 5px;
   background: #FFF;
