@@ -17,7 +17,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
-  subtitle = "Quantitative research scientist
+  subtitle = "Quantitative research scientist"
   logo = "img/portrait.jpg"
   #favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
@@ -103,7 +103,3 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     weight = 3
 
 
-[[menu.main]]
-    name = "Tags"
-    url = "tags"
-    weight = 4
