@@ -23,13 +23,12 @@ Applied quasi-experimental and statistical techniques for addressing questions o
 
 ## Technical toolkit
 
-
-
-- R 
-- Stata 
-- LATEX 
-- GitHub 
-- SQL, Python (beginner)
+ - R (>6 years +  DataCamp Data Science Career in R),
+ - Git (> 2 years)
+ - SQL (1 year)
+ - Python (1 year + DataCamp Data Science Career in Python (20%)),
+ - GIS (3 years)
+ - Stata (> 6 years)
 
 
 
@@ -44,7 +43,6 @@ Applied quasi-experimental and statistical techniques for addressing questions o
 - Produced several pieces of research (working papers) on social care and local public policy issues.
 
 - Collaborated with members from other Departments at Newcastle University.
-
 
 - Delivered technical seminars to postgraduate students and staff from Newcastle and Durham universities (R for Social Science)
 

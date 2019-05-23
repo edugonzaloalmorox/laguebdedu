@@ -101,5 +101,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     name = "Other projects"
     url = "post/projects"
     weight = 3
+    
+[[menu.main]]
+    name = "CV"
+    url = "page/resume/"
+    weight = 4
 
 
