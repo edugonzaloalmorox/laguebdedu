@@ -1,11 +1,10 @@
 ---
-title: Resume
+title: 
 subtitle: 
 comments: false
 ---
 
-
-## Skills
+### Skills
 
 
 #### Thinking analytically and creatively 
@@ -21,67 +20,79 @@ Delivered insights from research in different conferences and workshops for expe
 Applied quasi-experimental and statistical techniques for addressing questions of causal inference. Knowledge of supervised and unsupervised machine learning techniques. Implemented methods for health economic evaluations. 
 
 
-## Technical toolkit
+### Technical toolkit
 
- - R (>6 years +  DataCamp Data Science Career in R),
+
+ - R (>6 years +  DataCamp Data Science Career in R)
  - Git (> 2 years)
  - SQL (1 year)
- - Python (1 year + DataCamp Data Science Career in Python (20%)),
+ - Python (1 year + DataCamp Data Science Career in Python (20%))
  - GIS (3 years)
  - Stata (> 6 years)
 
 
+### Experience
 
-## Experience
-
-#### Economics Doctoral Researcher & Teaching assistant, Newcastle University 
-
-**2015 - present**
-
-- Awarded with a competitive 3 + 0.5 ESRC Doctoral studentship.
-
-- Produced several pieces of research (working papers) on social care and local public policy issues.
-
-- Collaborated with members from other Departments at Newcastle University.
-
-- Delivered technical seminars to postgraduate students and staff from Newcastle and Durham universities (R for Social Science)
-
-- Disseminated results at national and international conferences and workshops.
-
-- Seminar leader of modules: Economic applications (undergraduate), Econometrics and Applied Econometrics (postgraduate).
+#### Economics Researcher & Teaching assistant, Business School, Newcastle University 
 
 
-#### NIHR Research Methods Fellow, Newcastle University 
-
-**2013 - 2015**
-
-- Awarded with a competitive NIHR Research Methods Fellowship
-
-- Produced several pieces of research that included: a working paper on acute care provision, publication on health inequalities and a systematic review of acute care provision.
-
-- Teaching module Health and Society (undergraduate) 
-
-- Delivered technical seminars to fellow members of staff from Newcastle Health Economics Group and Evidence Synthesis Group. 
-
-- Disseminated results at national and international conferences and workshops.
+*2015 - present*
 
 
-#### Economic research Consultant, Funcas 
+- Developed statistical and econometric models based on panel data and quasi-experimental methods to address problems on causal inference.
 
-**2011 - 2012**
+- Worked with big microdatasets on +17000 care homes, +20M property transactions and other public information. 
 
-- Wrote reports and technical notes on Spanish and European financial sectors for senior members of the advisory board. 
+- Web-scrapped online reviews of care homes and applied machine learning on text data to analyse topic modelling.
 
-- Organised meetings and agendas for members of the Advisory Board
+- Delivered technical seminars to postgraduate students and staff from Newcastle and Durham universities.
+
+- Used GIS to visualise spatial distributions of multiple units of analysis (care homes, restaurants, hospitals, individuals...).
+
+- Taught Economic applications (undergraduate), Econometrics and Applied Econometrics (postgraduate).
+
+- Awarded with a competitive ESRC Doctoral studentship.
 
 
+#### NIHR Research Methods Fellow, Institute of Health & Society, Newcastle University 
+
+*2013 - 2015*
+
+- Developed quantitative methods for the economic evaluation and organisation of acute healthcare units. 
+
+- Published first-author papers in peer-reviewed journals and presented research at national and international meetings.
+
+- Managed a three-month research project that involved planning objectives, hiring and supervision of a junior researcher, meeting deadlines and deliver outcomes. 
+
+- Taught Health and Society (undergraduate) 
+
+- Awarded with a competitive NIHR Research Methods Fellowship,
+
+
+#### Economic research Consultant, Fundación Cajas de Ahorros 
+
+*2011 - 2012*
+
+- Provided advice and intelligence on Spanish and European financial regulation to members of the Advisory Board. 
 
 #### Public Policy Research Assistant to the Head of European Corporate Affairs, Grupo Santander 
 
-- Wrote summaries, reports and technical notes on Spanish and European financial regulation for senior members of the European Corporate Affairs Office and the Public Policy Department. 
+*2011 - 2012*
 
-- Organised meetings and agendas for members of the European Corporate Affairs office
+- Produced summaries, reports and technical notes on European financial regulation for senior members of the European Corporate Affairs Office and the Public Policy Department. 
 
-- Attended hearings at the European Parliament.
+- Organised meetings and agendas for members of the European Corporate Affairs office.
 
-- Attended meetings with staff from European Commission and think tanks to discuss issues on financial regulation and Group Santander´s group position.
+- Attended meetings with staff from European institutions and think-tanks on behalf of Santander to discuss issues on financial regulation.
+
+
+### Education 
+
+- Newcastle University (UK) - PhD in Economics, 2019
+- Complutense University (Spain) - MSc in Economics, 2012
+- Complutense University (Spain) - BSc (licenciatura) in Economics, 2009
+- IESEG and EDHEC Business School (France) - Visiting Student, 2006 - 2007
+
+
+
+
