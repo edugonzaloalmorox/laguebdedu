@@ -20,6 +20,3 @@ This is a [shiny app](https://edugonzaloalmorox.shinyapps.io/care-homes-quality/
 
 - `Ratings per quality dimension`: Show the number of care homes rated: Outstanding, Good, Requires Improvement or Inadequate, for each quality category evaluated and each local authority in England. 
 
-
-
-These materials and work are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
