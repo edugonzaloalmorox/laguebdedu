@@ -66,7 +66,7 @@ Applied quasi-experimental and statistical techniques for addressing questions o
 
 - Taught Health and Society (undergraduate) 
 
-- Awarded with a competitive NIHR Research Methods Fellowship,
+- Awarded with a competitive NIHR Research Methods Fellowship.
 
 
 #### Economic research Consultant, Fundación Cajas de Ahorros 
@@ -77,7 +77,7 @@ Applied quasi-experimental and statistical techniques for addressing questions o
 
 #### Public Policy Research Assistant to the Head of European Corporate Affairs, Grupo Santander 
 
-*2011 - 2012*
+*2008 - 2009*
 
 - Produced summaries, reports and technical notes on European financial regulation for senior members of the European Corporate Affairs Office and the Public Policy Department. 
 
