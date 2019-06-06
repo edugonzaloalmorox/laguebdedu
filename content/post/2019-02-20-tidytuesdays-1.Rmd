@@ -1,5 +1,5 @@
 ---
-title: 'tidytuesdays'
+title: 'PhDs in the US'
 author: 'Edu Gonzalo'
 date: '2019-02-20'
 slug: tidytuesdays-1
@@ -7,12 +7,12 @@ categories:
   - R
 tags:
   - tidytuesday
+  - gganimate
 subtitle: ''
 ---
 
 Finally I got myself into the [#tidytuesday](https://github.com/rfordatascience/tidytuesday). This project, promoted by [R for Data Science](https://www.jessemaegan.com/post/join-the-r-for-data-science-online-learning-community/), aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the `#RStats` skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback. 
 
-## Week 1
 
 The data for this week consisted of sample of [PhDs awarded by field in the US](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-19). The dataset is relatively small with just 5 variables that give information about the broad, major and main field, the year of the award and the number of PhDs awarded.
 
@@ -74,141 +74,10 @@ It seems that the number of PhD graduates in Humanities, Education, Sciences and
 Find the code on my [Github repository](https://github.com/edugonzaloalmorox/tidy-tuesdays/tree/master/week_19_02_2019).
 
 
-## Week 2 
-
-This weeek the [#tidytuesday](https://github.com/rfordatascience/tidytuesday) challenge consisted of plotting information regarding the [SNCF](https://en.wikipedia.org/wiki/SNCF) trains. The data are quite complete and there are several options for the representation. My choice this time was to represent the variation in the number of lines covered by each station.
-
-```{r, echo = TRUE, include=TRUE, message = FALSE, warning = FALSE, fig.height = 10}
-
-library(tidyverse)
-library(readr)
-library(janitor)
-library(hrbrthemes)
-
-
-full_train = read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-26/full_trains.csv")
-
-
-line_departures = full_train %>%
-  tabyl(departure_station, year)  %>%
-  gather(year, lines, -departure_station) %>%
-  arrange(departure_station)
-
-traffic =  full_train %>%
-  group_by(departure_station, year) %>%
-  summarise(trains = sum(total_num_trips))
 
 
 
-traffic$year = as.character(traffic$year)
 
-complete_data = line_departures %>%
-  left_join(., traffic, by = c("departure_station", "year"))
-
-
-sncf_plot = complete_data %>%
-   filter(!departure_station %in% c("PARIS LYON","PARIS MONTPARNASSE"), year %in% c("2015", "2018")) %>%
-  ggplot(., aes(lines, str_to_title(departure_station))) +
-  geom_line(aes(group = departure_station), color = 'grey50', alpha = 0.5) +
-  geom_point(aes(color = year, size = trains), alpha = 0.875) +
-  scale_colour_viridis_d(name ="Year", guide = guide_legend(title.position = "top", nrow = 1, title.hjust = 0.5, option = "cividis")) +
-  scale_x_continuous(limits = c(0, 80), 
-                     breaks = seq(0, 80, by = 5)) +
-  labs(y= "", x= "Number of lines", size="Traffic (number of trains)",
-       title =  "How many lines & trains from each destination?", 
-       subtitle = "Most stations have reduced the number of lines since 2015",
-       caption =  "Paris Lyon and Paris Montparnasse excluded from the analysis \n Source: SNCF \n @EdudinGonzalo") +
-  theme_ipsum(base_size = 6.5) + 
-  theme(panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-       legend.position = "bottom",
-        legend.background = element_blank(),
-        legend.direction="horizontal",
-        text = element_text(family = "Helvetica")) +
- guides(size = guide_legend(title.position="top", title.hjust = 0.5))
-
-
-sncf_plot
-
-
-```
-
- As we can see most stations reduced the number of lines they were supplying. Of those stations that had lines in 2015, Marseille St Charles and Burdeaux St Jean were the stations that experienced the greatest increases. Actually, Marseille St Jean equalised its number of lines to Lyon (both having 75 lines in total). There also other lines such as stations such as Nantes or Rennes that have big increases. 
- 
- The code in on my [Github repository](https://github.com/edugonzaloalmorox/tidy-tuesdays/tree/master/week_26_02_2019).
- 
- 
-## Week 3 
-
-In this week's [#tidytuesday](https://github.com/rfordatascience/tidytuesday) I plot the gender gap in earnings of women workers in the US from 1979 to 2011. As in week 1 I used `gganimate()` to illustrate the transitions over time. 
-
-```{r, echo = TRUE, include=TRUE, message = FALSE, warning = FALSE, fig.height = 10}
-
-
-
-library(tidyverse)
-library(gganimate)
-library(gghighlight)
-library(ggpubr)
-
-
-earnings_female <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/earnings_female.csv") 
-
-
-
-rank_data <- earnings_female %>%
-  group_by(Year) %>%
-  mutate(ordering = rank(percent)*1.0) %>%
-  ungroup() 
-
-
-rank_data$Year = as.Date(as.character(rank_data$Year), format = "%Y")
-
-
-
-p<-ggplot(rank_data,
-          aes(ordering, group = group ,color= group,fill= group)) +
-  geom_tile(aes(y = percent/2, 
-                height = percent,
-                width = 0.9), alpha = 0.75) +
-  geom_text(aes(y = percent, label = group), hjust = -0.4) +
-  geom_text(aes(y = 0, label = group), hjust = 2) +
-  coord_flip(clip = "off", expand = FALSE) +
-  scale_color_viridis_d(option = "plasma" )+
-  scale_fill_viridis_d(option = "plasma")+
-  scale_y_continuous(breaks = c(0,25, 50, 75, 100), limits = c(0,105))+
-  theme_minimal(14,"Avenir")+
-  guides(color=F,fill=F)+
-  labs(title =  "Earnings female workers per age group, 1979 - 2011",
-       subtitle='Year {frame_time}',
-       y = "Female salary percent of male salary (%)",
-       x = "",
-       caption =  "Source: NBER | @EdudinGonzalo") +
-  theme(plot.title = element_text(hjust = 1, size = 22),
-       axis.ticks.y = element_blank(),
-      axis.text.y  = element_blank(), 
-      panel.background  = element_blank(), 
-      panel.grid = element_blank(),
-      plot.background = element_blank(),
-      legend.position="bottom") + 
-  transition_time(Year)+
-  ease_aes('cubic-in-out') +
-  font("title", size = 22, color = "#c66eef", face = "bold") 
-
-
-animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)
-
-```
-
-
-As always, the code can be found on my [Github repository](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05).
-
-## Week 4
-
-In this week I build a simple [shiny app](https://edugonzaloalmorox.shinyapps.io/test-stops/) to visualise how the arrest rates, search rates and stop rates, vary across several states and driver's race. The data come from the Stanford Open Policing Project on policing activity in several US states. 
-
-
-## Week 5
 
 
 

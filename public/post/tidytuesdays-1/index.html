@@ -7,13 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>tidytuesdays - Edu Gonzalo Almorox</title>
-  <meta property="og:title" content="tidytuesdays" />
-  <meta name="twitter:title" content="tidytuesdays" />
+  <title>PhDs in the US - Edu Gonzalo Almorox</title>
+  <meta property="og:title" content="PhDs in the US" />
+  <meta name="twitter:title" content="PhDs in the US" />
   <meta name="description" content="Finally I got myself into the #tidytuesday. This project, promoted by R for Data Science, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the #RStats skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.
-Week 1 The data for this week consisted of sample of PhDs awarded by field in the US.">
+The data for this week consisted of sample of PhDs awarded by field in the US.">
   <meta property="og:description" content="Finally I got myself into the #tidytuesday. This project, promoted by R for Data Science, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the #RStats skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.
-Week 1 The data for this week consisted of sample of PhDs awarded by field in the US.">
+The data for this week consisted of sample of PhDs awarded by field in the US.">
   <meta name="twitter:description" content="Finally I got myself into the #tidytuesday. This project, promoted by R for Data Science, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of …">
   <meta name="author" content="Edu Gonzalo Almorox"/>
   <meta property="og:image" content="/img/portrait.jpg" />
@@ -42,14 +42,14 @@ Week 1 The data for this week consisted of sample of PhDs awarded by field in th
   "@context" : "http://schema.org",
   "@type" : "BlogPosting",
   "articleSection" : "R",
-  "name" : "tidytuesdays",
-  "headline" : "tidytuesdays",
+  "name" : "PhDs in the US",
+  "headline" : "PhDs in the US",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "/post/tidytuesdays-1/"
   },
   "description" : "Finally I got myself into the #tidytuesday. This project, promoted by R for Data Science, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the #RStats skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.
-Week 1 The data for this week consisted of sample of PhDs awarded by field in the US.",
+The data for this week consisted of sample of PhDs awarded by field in the US.",
   "inLanguage" : "en",
   "author": {
       "@type": "Person",
@@ -59,9 +59,9 @@ Week 1 The data for this week consisted of sample of PhDs awarded by field in th
   "datePublished": "2019-02-20T00:00:00+00:00",
   "dateModified": "2019-02-20T00:00:00+00:00",
   "url" : "/post/tidytuesdays-1/",
-  "wordCount" : "1060",
+  "wordCount" : "479",
   "image" : "/img/portrait.jpg",
-  "keywords" : [ "tidytuesday" ],
+  "keywords" : [ "tidytuesday, gganimate" ],
   "publisher" : {
     "@type": "Organization",
     "name" : "/",
@@ -214,7 +214,7 @@ Week 1 The data for this week consisted of sample of PhDs awarded by field in th
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>tidytuesdays</h1>
+                <h1>PhDs in the US</h1>
               
               
               
@@ -247,8 +247,6 @@ Week 1 The data for this week consisted of sample of PhDs awarded by field in th
 
 
 <p>Finally I got myself into the <a href="https://github.com/rfordatascience/tidytuesday">#tidytuesday</a>. This project, promoted by <a href="https://www.jessemaegan.com/post/join-the-r-for-data-science-online-learning-community/">R for Data Science</a>, aims to enhance the manipulation and visualisation skills among the R community by the exploratory analysis of a raw new dataset that is posted on a weekly basis. Apart from improving the <code>#RStats</code> skills, the idea of this project is to enable connections amongst the #Rstats community, explore other´s work and get feedback.</p>
-<div id="week-1" class="section level2">
-<h2>Week 1</h2>
 <p>The data for this week consisted of sample of <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-19">PhDs awarded by field in the US</a>. The dataset is relatively small with just 5 variables that give information about the broad, major and main field, the year of the award and the number of PhDs awarded.</p>
 <pre class="r"><code>library(tidyverse)
 library(gganimate)
@@ -306,133 +304,14 @@ head(check)</code></pre>
 <p><img src="/post/2019-02-20-tidytuesdays-1_files/figure-html/unnamed-chunk-3-1.gif" /><!-- --></p>
 <p>It seems that the number of PhD graduates in Humanities, Education, Sciences and Engineering have remained stable over time. Social and especially life sciences, however, have increased the amount of postgraduates since 2008.</p>
 <p>Find the code on my <a href="https://github.com/edugonzaloalmorox/tidy-tuesdays/tree/master/week_19_02_2019">Github repository</a>.</p>
-</div>
-<div id="week-2" class="section level2">
-<h2>Week 2</h2>
-<p>This weeek the <a href="https://github.com/rfordatascience/tidytuesday">#tidytuesday</a> challenge consisted of plotting information regarding the <a href="https://en.wikipedia.org/wiki/SNCF">SNCF</a> trains. The data are quite complete and there are several options for the representation. My choice this time was to represent the variation in the number of lines covered by each station.</p>
-<pre class="r"><code>library(tidyverse)
-library(readr)
-library(janitor)
-library(hrbrthemes)
-
-
-full_train = read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-26/full_trains.csv&quot;)
-
-
-line_departures = full_train %&gt;%
-  tabyl(departure_station, year)  %&gt;%
-  gather(year, lines, -departure_station) %&gt;%
-  arrange(departure_station)
-
-traffic =  full_train %&gt;%
-  group_by(departure_station, year) %&gt;%
-  summarise(trains = sum(total_num_trips))
-
-
-
-traffic$year = as.character(traffic$year)
-
-complete_data = line_departures %&gt;%
-  left_join(., traffic, by = c(&quot;departure_station&quot;, &quot;year&quot;))
-
-
-sncf_plot = complete_data %&gt;%
-   filter(!departure_station %in% c(&quot;PARIS LYON&quot;,&quot;PARIS MONTPARNASSE&quot;), year %in% c(&quot;2015&quot;, &quot;2018&quot;)) %&gt;%
-  ggplot(., aes(lines, str_to_title(departure_station))) +
-  geom_line(aes(group = departure_station), color = &#39;grey50&#39;, alpha = 0.5) +
-  geom_point(aes(color = year, size = trains), alpha = 0.875) +
-  scale_colour_viridis_d(name =&quot;Year&quot;, guide = guide_legend(title.position = &quot;top&quot;, nrow = 1, title.hjust = 0.5, option = &quot;cividis&quot;)) +
-  scale_x_continuous(limits = c(0, 80), 
-                     breaks = seq(0, 80, by = 5)) +
-  labs(y= &quot;&quot;, x= &quot;Number of lines&quot;, size=&quot;Traffic (number of trains)&quot;,
-       title =  &quot;How many lines &amp; trains from each destination?&quot;, 
-       subtitle = &quot;Most stations have reduced the number of lines since 2015&quot;,
-       caption =  &quot;Paris Lyon and Paris Montparnasse excluded from the analysis \n Source: SNCF \n @EdudinGonzalo&quot;) +
-  theme_ipsum(base_size = 6.5) + 
-  theme(panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-       legend.position = &quot;bottom&quot;,
-        legend.background = element_blank(),
-        legend.direction=&quot;horizontal&quot;,
-        text = element_text(family = &quot;Helvetica&quot;)) +
- guides(size = guide_legend(title.position=&quot;top&quot;, title.hjust = 0.5))
-
-
-sncf_plot</code></pre>
-<p><img src="/post/2019-02-20-tidytuesdays-1_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>As we can see most stations reduced the number of lines they were supplying. Of those stations that had lines in 2015, Marseille St Charles and Burdeaux St Jean were the stations that experienced the greatest increases. Actually, Marseille St Jean equalised its number of lines to Lyon (both having 75 lines in total). There also other lines such as stations such as Nantes or Rennes that have big increases.</p>
-<p>The code in on my <a href="https://github.com/edugonzaloalmorox/tidy-tuesdays/tree/master/week_26_02_2019">Github repository</a>.</p>
-</div>
-<div id="week-3" class="section level2">
-<h2>Week 3</h2>
-<p>In this week’s <a href="https://github.com/rfordatascience/tidytuesday">#tidytuesday</a> I plot the gender gap in earnings of women workers in the US from 1979 to 2011. As in week 1 I used <code>gganimate()</code> to illustrate the transitions over time.</p>
-<pre class="r"><code>library(tidyverse)
-library(gganimate)
-library(gghighlight)
-library(ggpubr)
-
-
-earnings_female &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/earnings_female.csv&quot;) 
-
-
-
-rank_data &lt;- earnings_female %&gt;%
-  group_by(Year) %&gt;%
-  mutate(ordering = rank(percent)*1.0) %&gt;%
-  ungroup() 
-
-
-rank_data$Year = as.Date(as.character(rank_data$Year), format = &quot;%Y&quot;)
-
-
-
-p&lt;-ggplot(rank_data,
-          aes(ordering, group = group ,color= group,fill= group)) +
-  geom_tile(aes(y = percent/2, 
-                height = percent,
-                width = 0.9), alpha = 0.75) +
-  geom_text(aes(y = percent, label = group), hjust = -0.4) +
-  geom_text(aes(y = 0, label = group), hjust = 2) +
-  coord_flip(clip = &quot;off&quot;, expand = FALSE) +
-  scale_color_viridis_d(option = &quot;plasma&quot; )+
-  scale_fill_viridis_d(option = &quot;plasma&quot;)+
-  scale_y_continuous(breaks = c(0,25, 50, 75, 100), limits = c(0,105))+
-  theme_minimal(14,&quot;Avenir&quot;)+
-  guides(color=F,fill=F)+
-  labs(title =  &quot;Earnings female workers per age group, 1979 - 2011&quot;,
-       subtitle=&#39;Year {frame_time}&#39;,
-       y = &quot;Female salary percent of male salary (%)&quot;,
-       x = &quot;&quot;,
-       caption =  &quot;Source: NBER | @EdudinGonzalo&quot;) +
-  theme(plot.title = element_text(hjust = 1, size = 22),
-       axis.ticks.y = element_blank(),
-      axis.text.y  = element_blank(), 
-      panel.background  = element_blank(), 
-      panel.grid = element_blank(),
-      plot.background = element_blank(),
-      legend.position=&quot;bottom&quot;) + 
-  transition_time(Year)+
-  ease_aes(&#39;cubic-in-out&#39;) +
-  font(&quot;title&quot;, size = 22, color = &quot;#c66eef&quot;, face = &quot;bold&quot;) 
-
-
-animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)</code></pre>
-<p><img src="/post/2019-02-20-tidytuesdays-1_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
-<p>As always, the code can be found on my <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-05">Github repository</a>.</p>
-</div>
-<div id="week-4" class="section level2">
-<h2>Week 4</h2>
-<p>In this week I build a simple <a href="https://edugonzaloalmorox.shinyapps.io/test-stops/">shiny app</a> to visualise how the arrest rates, search rates and stop rates, vary across several states and driver’s race. The data come from the Stanford Open Policing Project on policing activity in several US states.</p>
-</div>
-<div id="week-5" class="section level2">
-<h2>Week 5</h2>
-</div>
 
 
         
           <div class="blog-tags">
             
               <a href="//tags/tidytuesday/">tidytuesday</a>&nbsp;
+            
+              <a href="//tags/gganimate/">gganimate</a>&nbsp;
             
           </div>
         
@@ -446,7 +325,7 @@ animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)</code></pre>
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=%2fpost%2ftidytuesdays-1%2f&amp;text=tidytuesdays&amp;via=EdudinGonzalo" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=%2fpost%2ftidytuesdays-1%2f&amp;text=PhDs%20in%20the%20US&amp;via=EdudinGonzalo" target="_blank" title="Share on Twitter">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -467,28 +346,28 @@ animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)</code></pre>
   
       
       <li>
-        <a href="//reddit.com/submit?url=%2fpost%2ftidytuesdays-1%2f&amp;title=tidytuesdays" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=%2fpost%2ftidytuesdays-1%2f&amp;title=PhDs%20in%20the%20US" target="_blank" title="Share on Reddit">
           <i class="fa fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2ftidytuesdays-1%2f&amp;title=tidytuesdays" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2ftidytuesdays-1%2f&amp;title=PhDs%20in%20the%20US" target="_blank" title="Share on LinkedIn">
           <i class="fa fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=%2fpost%2ftidytuesdays-1%2f&amp;title=tidytuesdays" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2ftidytuesdays-1%2f&amp;title=PhDs%20in%20the%20US" target="_blank" title="Share on StumbleUpon">
           <i class="fa fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2ftidytuesdays-1%2f&amp;description=tidytuesdays" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2ftidytuesdays-1%2f&amp;description=PhDs%20in%20the%20US" target="_blank" title="Share on Pinterest">
           <i class="fa fa-pinterest"></i>
         </a>
       </li>
@@ -501,6 +380,13 @@ animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)</code></pre>
         
           
           
+          <h4 class="see-also">See also</h4>
+          <ul>
+          
+            <li><a href="/post/ageing-in-england/">Animating administrative data</a></li>
+          
+          </ul>
+          
         
       </article>
 
@@ -511,6 +397,10 @@ animate(p, nframes = 250, fps = 10, end_pause = 20, width = 1000)</code></pre>
               <a href="/post/congreso-espa%C3%B1ol/" data-toggle="tooltip" data-placement="top" title="El 2018 en el Congreso español">&larr; Previous Post</a>
             </li>
           
+          
+            <li class="next">
+              <a href="/post/tidytuesday-sncf-trains/" data-toggle="tooltip" data-placement="top" title="SNCF trains">Next Post &rarr;</a>
+            </li>
           
         </ul>
       

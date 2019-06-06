@@ -20,3 +20,8 @@ This is a [shiny app](https://edugonzaloalmorox.shinyapps.io/care-homes-quality/
 
 - `Ratings per quality dimension`: Show the number of care homes rated: Outstanding, Good, Requires Improvement or Inadequate, for each quality category evaluated and each local authority in England. 
 
+
+## Hello in the Shiny world
+
+
+As part of [tidytuesday](https://github.com/rfordatascience/tidytuesday) project, I build a (rather) simple [shiny app](https://edugonzaloalmorox.shinyapps.io/test-stops/) to visualise how the arrest rates, search rates and stop rates, vary across several states and driver's race. The data come from the Stanford Open Policing Project on policing activity in several US states. 
