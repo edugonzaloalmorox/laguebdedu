@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Student to teacher ratios in Europe</title>
+      <link>/post/student-to-teacher-ratios/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/student-to-teacher-ratios/</guid>
+      <description>A measure to define the quality of education is the number of students per teacher. In this tidytuesday project I use data from the UNESCO to visualise the differences among European Countries. As it happens with other domains, such as health there are significant differences depending on the type of education considered. The plot is a good example of how to represent different levels of a factor in a faceted ggplot.</description>
+    </item>
+    
+    <item>
+      <title>How should you call your pet ...</title>
+      <link>/post/how-should-you-call-your-pet/</link>
+      <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/how-should-you-call-your-pet/</guid>
+      <description>… if you live in Seattle? The tidytuesday project from this week can give you some hints in case you feel undecided. I produce a heatmap with geom_tile() to see what are the most common names for pets in Seattle and whether there are some periods during the year that are more popular than others. There are names, such as Lucy, that seem to be everlasting for dogs and cats.</description>
+    </item>
     
     <item>
       <title>Women and salaries</title>

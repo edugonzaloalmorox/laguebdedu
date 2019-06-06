@@ -1,0 +1,72 @@
+---
+title: How should you call your pet ...
+author: ''
+date: '2019-03-26'
+slug: how-should-you-call-your-pet
+categories:
+  - R
+tags:
+  - tidytuesday
+  - heatmap
+subtitle: ''
+---
+
+... if you live in Seattle? The [tidytuesday project](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-03-26) from this week can give you some hints in case you feel undecided. I produce a heatmap with `geom_tile()` to see what are the most common names for pets in Seattle and whether there are some periods during the year that are more popular than others. There are names, such as *Lucy*, that seem to be everlasting for dogs and cats. Others, such as *Daisy*, *Luna* or *Bella* present more seasonal patterns. 
+
+```{r, echo = FALSE, include=TRUE, message = FALSE, warning = FALSE, fig.height = 10}
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(anytime)
+library(ggpubr)
+
+
+
+seattle_pets <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-26/seattle_pets.csv")
+
+pets = seattle_pets %>%
+  mutate(date_clean = anytime(license_issue_date)) %>%
+  arrange(date_clean)
+ 
+  
+  pets = pets %>%
+        mutate(year = lubridate::year(date_clean),
+         month = lubridate::month(date_clean, label = TRUE),
+         day = lubridate::day(date_clean)) %>%
+  select(date_clean, day, month, year,-license_issue_date, everything())
+
+# most frequent names and  date of registration 
+
+col1 = "#d8e1cf" 
+col2 = "#438484"
+
+
+common_names = pets %>%
+  group_by(animals_name) %>%
+  tally() %>%
+  filter(!is.na(animals_name)) %>%
+  arrange(desc(n)) %>%
+ top_n(15, n)
+
+ common_complete = pets %>%
+  filter(animals_name %in% unique(common_names$animals_name)) %>%
+  group_by(animals_name, month) %>%
+  tally() %>%
+  arrange(month) %>%
+  ggplot(aes(month, animals_name)) + 
+  geom_tile(aes(fill = n), colour = "white", na.rm = TRUE) + 
+  scale_fill_gradient(low = col1, high = col2, breaks = c(10,20,30,40)) + 
+  theme_bw() + theme_minimal() + 
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", legend.direction="horizontal",
+        axis.text.x = element_text(angle = 0, hjust = 1)) +
+  guides(fill=guide_legend(title="# Registrations", nrow=1)) +
+  labs(title = "When are the most common pet names registered in Seattle?" , subtitle = " Period 2003 - 2018, only dogs and cats considered", x ="", y = "", caption = "Source: Seattle pet names | @EdudinGonzalo") + 
+  font("title", size = 14, color = col2, face = "bold") 
+ 
+ common_complete
+
+```
+
+The code can be found [here](https://github.com/edugonzaloalmorox/tidy-tuesdays/blob/master/week_26_03_2019/week_25_03_2019.R).
