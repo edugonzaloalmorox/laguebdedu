@@ -10,7 +10,7 @@ tags:
 subtitle: ''
 ---
 
-A measure to define the quality of education is the number of students per teacher. In this [tidytuesday project](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-07) I use data from the [UNESCO](https://en.wikipedia.org/wiki/UNESCO) to visualise the differences among European Countries. As it happens with other domains, such as [health](https://ec.europa.eu/jrc/en/health-knowledge-gateway/societal-impacts/inequalities) there are significant differences depending on the type of education considered. The plot is a good example of how to represent different levels of a factor in a faceted `ggplot`.
+A measure to define the quality of education is the number of students per teacher. In this [tidytuesday project](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-07) I use data from the [UNESCO](https://en.wikipedia.org/wiki/UNESCO) to visualise the differences among European Countries. As it happens with other domains, such as [health](https://ec.europa.eu/jrc/en/health-knowledge-gateway/societal-impacts/inequalities), there are significant differences depending on the type of education considered. The plot is a good example of how to represent different levels of a factor in a faceted `ggplot`.
 
 
 ```{r, echo = FALSE, include=TRUE, message = FALSE, warning = FALSE, fig.height = 6, fig.weight = 16}
