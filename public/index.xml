@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</managingEditor>
     <webMaster>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</webMaster>
-    <lastBuildDate>Mon, 06 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Where do meteorites land</title>
+      <link>/post/where-do-meteorites-land/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <author>eduardogonzaloalmorox@gmail.com (Edu Gonzalo Almorox)</author>
+      <guid>/post/where-do-meteorites-land/</guid>
+      <description>This week’s tidytuesday project proposed a dataset provided by NASA with information on meteorites. I plotted where the biggest meteorites were found during the last 119 years. Interestingly, countries such as Oman, Morocco or Libya have received most impacts.</description>
+    </item>
     
     <item>
       <title>Student to teacher ratios in Europe</title>

@@ -1,0 +1,55 @@
+---
+title: Where do meteorites land
+author: ''
+date: '2019-06-10'
+slug: where-do-meteorites-land
+categories:
+  - R
+tags:
+  - tidytuesday
+  - maps
+subtitle: ''
+---
+
+This week's [tidytuesday project](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11) proposed a dataset provided by [NASA](https://en.wikipedia.org/wiki/NASA) with information on meteorites. I plotted where the biggest meteorites were found during the last 119 years. Interestingly, countries such as Oman, Morocco or Libya have received most impacts. 
+
+
+```{r, echo = FALSE, include=TRUE, message = FALSE, warning = FALSE, fig.height = 6, fig.weight = 16}
+
+library(tidyverse)
+library(ggthemes)
+library(ggpubr)
+
+
+meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-11/meteorites.csv")
+
+big_meteorites = meteorites %>% 
+  mutate(decile = percent_rank(mass))  %>%
+  filter(decile >= 0.75, year >= 1900 & year <= 2019) 
+
+
+cols = c("Found" ="#a9c19b",
+         "Fell" = "#c1b39b")
+
+ ggplot() + 
+  borders("world", colour = "#9ba9c1", fill = "#9ba9c1") +
+  theme_map(12, "Avenir") +
+  geom_point(data = big_meteorites,
+             aes(x = long, y = lat, size = mass, colour = fall), alpha = .35) +
+  scale_colour_manual(values = cols) +
+  labs(title = "Where do meteorites land?",
+       subtitle = "Higher proportion of found meteorites (green) vs fell (orange)\n specially in US, Chile, Oman, Morocco, Libya and Australia", 
+        caption = "Note: Sample considers 25% biggest meteorites by mass between 1900 and 2019. \n @EdudinGonzalo | NASA ") + 
+  theme(legend.position = "none", 
+        legend.spacing.x = unit(0.5, 'cm'),
+        legend.text = element_text(margin = margin(t = 10)),
+        plot.title = element_text(hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5)) +
+  font("title", size = 22, color = "#59616d") +
+  font("subtitle", size = 8, color = "#8b96a8") +
+  font("caption", size = 6,  color = "#8b96a8" ) +
+  coord_fixed(ratio = 1.05)
+
+
+
+```
